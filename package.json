@@ -1,11 +1,14 @@
 {
   "name": "TruBalance Bodywork",
   "version": "1.0.0",
-  "description": "",
+  "description": "TruBalance Bodywork in Orem, Utah provides massage therapy and energy work tailored to restore your body and uplift your spirit.",
   "main": "index.js",
   "private": true,
   "packageManager": "pnpm@8.9.1",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "deploy:cms": "git subtree push --prefix=apps/cms cms main",
     "prepare": "is-ci || husky",
@@ -17,12 +20,66 @@
     "check": "pnpm lint && pnpm test && pnpm build"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,jsx}": ["eslint --fix"],
-    "*.{css,scss}": ["stylelint --fix"],
-    "*.{json,md}": ["prettier --write"]
+    "*.{js,ts,tsx,jsx}": [
+      "eslint --fix"
+    ],
+    "*.{css,scss}": [
+      "stylelint --fix"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
   },
-"keywords": ["massage"," massage therapy"," massage in Utah"," massage therapy in Utah"," massage Utah"," massage therapy Utah"," Utah massage"," Utah massage therapy"," professional massage"," best massage in Utah"," pain relief Utah"," massage Orem"," massage Orem Utah"," stone massage"," swedish"," massage near me"," massage pparlour near me"," foot massage"," masseur"," bodywork massage"," thai bodywork"," pain relief"," muscle pain relief"," natural pain relief"," pregnancy pain relief"," pregnancy safe pain relief"," pregnancy massage"," prenatal massage"," shoulder pain"," back pain"," neck pain"," stiff neck"," knee pain"," tmj"," cranial sacral massage"," relax massage therapy"," deep tissue"," deep massage therapy"," massage therapy license"," massage therapy certification"," benefits of massage therapy"," professional massage"," spd pain"," sciatica"," muscles"," sore muscles"," brenden heywood"],  
-"author": "Tapt Designs",
+  "keywords": [
+    "massage",
+    "massage therapy",
+    "massage in Utah",
+    "massage therapy in Utah",
+    "massage Utah",
+    "massage therapy Utah",
+    "Utah massage",
+    "Utah massage therapy",
+    "professional massage",
+    "best massage in Utah",
+    "pain relief Utah",
+    "massage Orem",
+    "massage Orem Utah",
+    "stone massage",
+    "swedish",
+    "massage near me",
+    "massage parlour near me",
+    "foot massage",
+    "masseur",
+    "bodywork massage",
+    "thai bodywork",
+    "pain relief",
+    "muscle pain relief",
+    "natural pain relief",
+    "pregnancy pain relief",
+    "pregnancy safe pain relief",
+    "pregnancy massage",
+    "prenatal massage",
+    "shoulder pain",
+    "back pain",
+    "neck pain",
+    "stiff neck",
+    "knee pain",
+    "tmj",
+    "cranial sacral massage",
+    "relax massage therapy",
+    "deep tissue",
+    "deep massage therapy",
+    "massage therapy license",
+    "massage therapy certification",
+    "benefits of massage therapy",
+    "professional massage",
+    "spd pain",
+    "sciatica",
+    "muscles",
+    "sore muscles",
+    "brenden heywood"
+  ],
+  "author": "Tapt Designs",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
@@ -63,6 +120,11 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@sanity/image-url": "^1.2.0", "express": "^5.1.0"
+    "@sanity/client": "^7.11.2",
+    "@sanity/image-url": "^1.2.0",
+    "@storybook/react": "^9.1.7",
+    "express": "^5.1.0",
+    "firebase": "^12.3.0",
+    "launchdarkly-react-client-sdk": "^3.8.1"
   }
 }
