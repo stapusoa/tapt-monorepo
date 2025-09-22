@@ -122,7 +122,6 @@
     "stylelint-config-tailwindcss": "^0.0.7",
     "ts-node": "^10.9.2",
     "turbo": "^2.5.4",
-    "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   },
   "dependencies": {
@@ -131,6 +130,7 @@
     "@storybook/react": "^9.1.7",
     "express": "^5.1.0",
     "firebase": "^12.3.0",
-    "launchdarkly-react-client-sdk": "^3.8.1"
+    "launchdarkly-react-client-sdk": "^3.8.1",
+    "typescript": "^5.9.2"
   }
 }
