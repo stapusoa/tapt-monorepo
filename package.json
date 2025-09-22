@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "deploy:cms": "git subtree push --prefix=apps/cms cms main",
-    "prepare": "is-ci || husky && husky install",
+    "prepare": "if [ ! \"$CI\" ]; then husky install; fi",
     "build": "pnpm turbo run build",
     "dev:backend": "pnpm --filter backend dev",
     "build:backend": "pnpm --filter backend build",
