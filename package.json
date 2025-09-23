@@ -126,11 +126,14 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@google-cloud/recaptcha-enterprise": "^6.3.0",
     "@sanity/client": "^7.11.2",
     "@sanity/image-url": "^1.2.0",
     "@storybook/react": "^9.1.7",
+    "axios": "^1.12.2",
     "express": "^5.1.0",
     "firebase": "^12.3.0",
+    "firebase-admin": "^11.9.0",
     "launchdarkly-react-client-sdk": "^3.8.1",
     "typescript": "^5.9.2"
   }
