@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo 'No tests, skipping' && exit 0",
-    "dev": "ts-node dev --respawn src/index.ts",
+    "dev": "ts-node dev --respawn --transpile-only index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "deploy": "git subtree push --prefix apps/backend backend main",
@@ -31,6 +31,7 @@
   "author": "Tapt Designs",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/recaptcha-enterprise": "^6.3.0",
     "@sanity/client": "link:sanity/client@^7.8.2",
     "@sanity/image-url": "sanity/image-url@^1.2.0",
     "cors": "^2.8.5",
