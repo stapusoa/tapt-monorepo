@@ -5,8 +5,14 @@ import { Textarea } from "@/components/ui/textarea/textarea"
 import { Label } from "@/components/ui/label/label"
 import type { PageType } from "@/components/ui/navigation/types"
 import { useState } from "react"
-import { db } from "@/lib/firebase"   // adjust path to your firebase.ts
-import { collection, addDoc, Timestamp } from "firebase/firestore"
+import axios from "axios"
+
+// Make TypeScript aware of grecaptcha
+declare global {
+  interface Window {
+    grecaptcha: any;
+  }
+}
 
 export function QuickContactSection({ onNavigate }: { onNavigate: (page: PageType) => void }) {
   const [form, setForm] = useState({
@@ -18,17 +24,43 @@ export function QuickContactSection({ onNavigate }: { onNavigate: (page: PageTyp
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
 
-  async function handleSubmit() {
+  // Dynamically load reCAPTCHA script
+  const loadRecaptcha = (): Promise<void> =>
+    new Promise((resolve) => {
+      if (document.getElementById("recaptcha-script")) return resolve() // Already loaded
+      const script = document.createElement("script")
+      script.id = "recaptcha-script"
+      script.src = `https://www.google.com/recaptcha/enterprise.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`
+      script.async = true
+      script.onload = () => resolve()
+      document.head.appendChild(script)
+    })
+
+  const handleSubmit = async () => {
     setLoading(true)
     try {
-      await addDoc(collection(db, "appointments"), {
-        ...form,
-        createdAt: Timestamp.now(),
+      // 1️⃣ Load reCAPTCHA
+      await loadRecaptcha()
+
+      // 2️⃣ Wait until grecaptcha is ready
+      await new Promise<void>((resolve) => window.grecaptcha.enterprise.ready(resolve))
+
+      // 3️⃣ Execute reCAPTCHA and get token
+      const token = await window.grecaptcha.enterprise.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, {
+        action: "contact_form",
       })
+
+      // 4️⃣ Send form + token to backend
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/contact`, {
+        ...form,
+        recaptchaToken: token,
+      })
+
       setSuccess(true)
-      setForm({ name: "", phone: "", email: "", message: "" }) // reset
+      setForm({ name: "", phone: "", email: "", message: "" })
     } catch (err) {
-      console.error("Error saving message:", err)
+      console.error("Error sending message:", err)
+      alert("Failed to send message. Please try again.")
     } finally {
       setLoading(false)
     }
@@ -50,7 +82,7 @@ export function QuickContactSection({ onNavigate }: { onNavigate: (page: PageTyp
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button
-                    onClick={() => onNavigate('contact')}
+                    onClick={() => onNavigate("contact")}
                     className="bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30 text-white font-semibold px-8 py-3 rounded-xl"
                   >
                     Schedule Consultation
@@ -68,25 +100,26 @@ export function QuickContactSection({ onNavigate }: { onNavigate: (page: PageTyp
               <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="font-['Merriweather:Bold',_sans-serif] text-[24px]">Quick Contact</CardTitle>
-                  <CardDescription>
-                    Get a response within 24 hours
-                  </CardDescription>
+                  <CardDescription>Get a response within 24 hours</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="quickName" className="text-sm font-medium">Name</Label>
+                      <Label htmlFor="quickName" className="text-sm font-medium">
+                        Name
+                      </Label>
                       <Input
                         id="quickName"
                         value={form.name}
                         onChange={(e) => setForm({ ...form, name: e.target.value })}
                         placeholder="Your name"
-
                         className="h-10 rounded-lg border-gray-200 focus:border-[#5e4684] focus:ring-[#5e4684]"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="quickPhone" className="text-sm font-medium">Phone</Label>
+                      <Label htmlFor="quickPhone" className="text-sm font-medium">
+                        Phone
+                      </Label>
                       <Input
                         id="quickPhone"
                         value={form.phone}
@@ -97,7 +130,9 @@ export function QuickContactSection({ onNavigate }: { onNavigate: (page: PageTyp
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="quickEmail" className="text-sm font-medium">Email</Label>
+                    <Label htmlFor="quickEmail" className="text-sm font-medium">
+                      Email
+                    </Label>
                     <Input
                       id="quickEmail"
                       value={form.email}
@@ -108,7 +143,9 @@ export function QuickContactSection({ onNavigate }: { onNavigate: (page: PageTyp
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="quickMessage" className="text-sm font-medium">Message</Label>
+                    <Label htmlFor="quickMessage" className="text-sm font-medium">
+                      Message
+                    </Label>
                     <Textarea
                       id="quickMessage"
                       value={form.message}
@@ -120,7 +157,7 @@ export function QuickContactSection({ onNavigate }: { onNavigate: (page: PageTyp
                   </div>
                   <Button
                     onClick={handleSubmit}
-                    disabled={loading}
+                    disabled={loading || success}
                     className="w-full bg-gradient-to-r from-[#5e4684] to-[#7a5ba8] hover:from-[#4a3570] hover:to-[#65487c] text-white rounded-lg font-semibold"
                   >
                     {loading ? "Sending..." : success ? "Sent!" : "Send Message"}

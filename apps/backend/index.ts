@@ -1,56 +1,71 @@
-import express, { Request, Response } from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
-import { getSanityClient } from "./src/lib/cms/sanityClient.js"
-import { PAGE_QUERY } from "./src/lib/cms/queries/index.js"
+import express, { Request, Response } from "express"
+import dotenv from "dotenv"
+import cors from "cors"
+import path from "path"
+import { db, admin } from "./firebase.js"
+import { fileURLToPath } from "url"
+import { RecaptchaEnterpriseServiceClient } from "@google-cloud/recaptcha-enterprise"
+import { verifyRecaptcha } from "./src/utils/verifyRecaptcha.js"
 
-dotenv.config();
-const app = express();
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
+// Load .env (adjust path if needed)
+dotenv.config({ path: path.resolve(__dirname, "../.env.staging") })
+
+const app = express()
+
+// Allowed origins
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
   process.env.FRONTEND_URL,
-].filter((origin): origin is string => typeof origin === "string" && origin.length > 0);
+].filter(Boolean)
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    return callback(new Error("Not allowed by CORS"));
+    if (!origin || allowedOrigins.includes(origin)) return callback(null, true)
+    return callback(new Error("Not allowed by CORS"))
   },
   methods: ["GET", "POST", "OPTIONS"],
-}));
+}))
 
-app.use(express.json());
+app.use(express.json())
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Initialize reCAPTCHA client
+const recaptchaClient = new RecaptchaEnterpriseServiceClient()
 
-// ----- Static Assets -----
-const assetsPath = path.join(process.cwd(), "assets");
-app.use("/assets", express.static(assetsPath));
+// Contact route
+app.post("/contact", async (req: Request, res: Response) => {
+  const { name, email, phone, message, recaptchaToken } = req.body
 
-// -------- Page Routes --------
-app.get("/page/:slug", async (req: Request, res: Response) => {
-  const { slug } = req.params
-  const client = getSanityClient()
-
-  try {
-    const page = await client.fetch(PAGE_QUERY, { slug })
-
-    if (!page) return res.status(404).json({ error: "Page not found" })
-
-    res.json(page)
-  } catch (err) {
-    console.error(err)
-    res.status(500).json({ error: "Server error" })
+  if (!recaptchaToken) {
+    return res.status(400).json({ message: "Missing reCAPTCHA token" })
   }
+
+  const result = await verifyRecaptcha(recaptchaToken, "contact_form")
+  if (!result.valid) {
+    return res.status(400).json({
+      message: "Failed reCAPTCHA verification",
+      reason: result.reason,
+      score: result.score,
+    })
+  }
+
+  // Save to Firestore
+  const docRef = await db.collection("appointments").add({
+    name,
+    email,
+    phone,
+    message,
+    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+  })
+
+  res.json({ message: "Success", id: docRef.id })
 })
 
-// -------- Start Server --------
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
-export default app;
+// Start server
+const PORT = process.env.BACKEND_PORT || 3000
+app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`))
+
+export default app
