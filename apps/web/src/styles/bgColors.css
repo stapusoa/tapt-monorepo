@@ -7,7 +7,7 @@
   .bg-subtle { background-color: var(--color-neutral-50); }
   .bg-disabled { background-color: var(--color-neutral-100); }
 
-  .bg-primary { background-color: var(--color-primary); }
+  .bg-primary { background-color: var(--color-primary, #eead4c); }
   .bg-primary-light { background-color: var(--color-primary-light); }
   .bg-primary-dark { background-color: var(--color-primary-dark); }
 
@@ -34,4 +34,31 @@
   .bg-info { background-color: var(--color-info); }
   .bg-info-light { background-color: var(--color-info-light); }
   .bg-info-dark { background-color: var(--color-info-dark); }
+
+  .bg-neutral-50\/30 { background-color: var(--color-neutral-50/30, rgb(246 245 247 / 30%))}
+  .bg-neutral-100\/30 { background-color: var(--color-neutral-100/30, rgb(244 242 242 / 30%))}
+  .bg-neutral-200\/30 { background-color: var(--color-neutral-200/30, rgb(239 239 239 / 30%))}
+  .bg-neutral-300\/30 { background-color: var(--color-neutral-300/30, rgb(235 235 235 / 30%))}
+  .bg-neutral-400\/30 { background-color: var(--color-neutral-400/30, rgb(204 201 201 / 30%))}
+  .bg-neutral-500\/30 { background-color: var(--color-neutral-500/30, rgb(189 188 188 / 30%))}
+  .bg-neutral-600\/30 { background-color: var(--color-neutral-600/30, rgb(155 152 152 / 30%))}
+  .bg-neutral-700\/30 { background-color: var(--color-neutral-700/30, rgb(126 123 123 / 30%))}
+  .bg-neutral-800\/30 { background-color: var(--color-neutral-800/30, rgb(91 87 87 / 30%))}
+  .bg-neutral-900\/30 { background-color: var(--color-neutral-900/30, rgb(66 64 64 / 30%))}
+  .bg-neutral-1000\/30 { background-color: var(--color-neutral-1000/30, rgb(46 43 43 / 30%))}
+
+}
+
+@theme {
+  --bg-neutral-50/30: var(--color-neutral-50/30, rgb(246 245 247 / 30%));
+  --bg-neutral-100/30: var(--color-neutral-100/30, rgb(244 242 242 / 30%));
+  --bg-neutral-200/30: var(--color-neutral-200/30, rgb(239 239 239 / 30%));
+  --bg-neutral-300/30: var(--color-neutral-300/30, rgb(235 235 235 / 30%));
+  --bg-neutral-400/30: var(--color-neutral-400/30, rgb(204 201 201 / 30%));
+  --bg-neutral-500/30: var(--color-neutral-500/30, rgb(189 188 188 / 30%));
+  --bg-neutral-600/30: var(--color-neutral-600/30, rgb(155 152 152 / 30%));
+  --bg-neutral-700/30: var(--color-neutral-700/30, rgb(126 123 123 / 30%));
+  --bg-neutral-800/30: var(--color-neutral-800/30, rgb(91 87 87 / 30%));
+  --bg-neutral-900/30: var(--color-neutral-900/30, rgb(66 64 64 / 30%));
+  --bg-neutral-1000/30: var(--color-neutral-1000/30, rgb(46 43 43 / 30%));
 }

@@ -42,7 +42,9 @@ module.exports = {
           "while"
         ]
       }
-    ]
+    ],
+    "selector-class-pattern": null,
+    "custom-property-pattern": null
   },
   ignoreFiles: ["**/dist/**", "**/build/**", "**/storybook-static/**"]
 };

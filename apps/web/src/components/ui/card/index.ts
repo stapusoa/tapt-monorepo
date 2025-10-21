@@ -1,1 +1,1 @@
-export { Card } from "./cardNew"
+export { Card } from "./card"

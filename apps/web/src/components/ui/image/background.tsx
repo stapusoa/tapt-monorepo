@@ -1,21 +1,49 @@
-import React from "react"
-import clsx from "clsx"
 import { bgStyles } from "./styles"
-import type { BackgroundImageProps } from "./types"
+import { DEFAULT_BACKGROUND_ALT } from "./constants"
+import type { BGProps, Breakpoint } from "./types"
 
-export const BGImage: React.FC<BackgroundImageProps> = ({
-  src,
-  alt = "",
+export function BGImage({
+  images,
+  fallback,
+  alt = DEFAULT_BACKGROUND_ALT,
   className,
-  breakpoint = "sm",
-  ...props
-}) => {
+  fixed,
+}: BGProps) {
+  // If no responsive images are provided, use fallback
+  const finalImages: Record<Breakpoint, string> = images ?? {
+    sm: fallback ?? "",
+    md: fallback ?? "",
+    lg: fallback ?? "",
+  }
+
   return (
-    <img
-      src={src}
-      alt={alt}
-      className={clsx(bgStyles[breakpoint], className)}
-      {...props}
-    />
+    <>
+      {/* Large screens */}
+      <img
+        alt={alt}
+        src={finalImages.lg}
+        loading="lazy"
+        className={`${bgStyles.lg} ${className ?? ""}`}
+        style={fixed ? { position: "fixed" } : undefined}
+      />
+
+      {/* Tablets */}
+      <img
+        alt={alt}
+        src={finalImages.md}
+        loading="lazy"
+        className={`${bgStyles.md} ${className ?? ""}`}
+        style={fixed ? { position: "fixed" } : undefined}
+      />
+
+      {/* Mobile — eager load */}
+      <img
+        alt={alt}
+        src={finalImages.sm}
+        loading="eager"
+        className={`${bgStyles.sm} ${className ?? ""}`}
+        style={fixed ? { position: "fixed" } : undefined}
+      />
+    </>
   )
 }

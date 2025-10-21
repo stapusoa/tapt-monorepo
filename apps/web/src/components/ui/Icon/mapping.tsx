@@ -8,10 +8,12 @@ import {
   InstagramIcon,
   FacebookIcon,
   UserIcon,
-  EmailIcon
+  EmailIcon,
+  ShoppingCartIcon,
+  SearchIcon
 } from '../icons'
 
-const IconMapping = {
+export const IconMapping = {
   loading: <LoadingIcon />,
   phone: <PhoneIcon />,
   phoneOutlined: <PhoneOutlinedIcon />,
@@ -21,10 +23,9 @@ const IconMapping = {
   facebook: <FacebookIcon />,
   instagram: <InstagramIcon />,
   user: <UserIcon />,
-  email: <EmailIcon />
-}
+  email: <EmailIcon />,
+  shoppingCart: <ShoppingCartIcon />,
+  search: <SearchIcon />
+} as const
 
-type AvailableIcons = keyof typeof IconMapping
-
-export { IconMapping }
-export type { AvailableIcons }
+export type AvailableIcons = keyof typeof IconMapping

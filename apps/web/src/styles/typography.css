@@ -1,9 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;500;600;700&display=swap');
+@import url("https://use.typekit.net/dpb8mkt.css");
+
+@font-face {
+  font-family: Koya;
+  src: url("/fonts/Koya-Semibold.woff2") format("woff2"),
+       url("/fonts/Koya-Semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
 
 @layer utilities {
-  .font-montserrat { font-family: var(--font-montserrat); }
-  .font-helvetica-neue { font-family: var(--font-helvetica-neue); }
+  .font-primary { font-family: var(--font-primary); }
+  .font-secondary { font-family: var(--font-secondary); }
   .text-xs { font-size: var(--text-xs); }
   .text-sm { font-size: var(--text-sm); }
   .text-base { font-size: var(--text-base); }
@@ -16,12 +24,18 @@
   .text-6xl { font-size: var(--text-6xl); }
   .text-7xl { font-size: var(--text-7xl); }
   .text-8xl { font-size: var(--text-8xl); }
+  .text-9xl { font-size: var(--text-9xl); }
+  .text-10xl { font-size: var(--text-10xl); }
+}
+
+@theme {
+  --font-primary: "Koya", sans-serif;
+  --font-secondary: "alternate-gothic-no-2-d", sans-serif;
 }
 
 :root {
-  --font-montserrat: "Montserrat", serif;
-  --font-helvetica-neue: "Helvetica Neue", sans-serif;
-
+  --font-primary: "Koya", sans-serif;
+  --font-secondary: "alternate-gothic-no-2-d", sans-serif;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -34,16 +48,16 @@
   --text-6xl: 3rem;
   --text-7xl: 3.5rem;
   --text-8xl: 4rem;
-
+  --text-9xl: 5rem;
+  --text-10xl: 6rem;
   --leading-cozy: 1.08;
   --leading-tighter: 1.15;
   --leading-tight: 1.25;
   --leading-snug: 1.375;
   --leading-normal: 1.5;
   --leading-relaxed: 1.625;
-
   --tracking-tight: -0.015em;
-  --tracking-normal: 0em;
+  --tracking-normal: 0;
   --tracking-wide: 0.025em;
   --tracking-wider: 0.05em;
   --tracking-widest: 0.1em;
@@ -60,6 +74,7 @@
       color: var(--text-default);
       margin: 0;
     }
+
     h1 {
       font-family: var(--font-montserrat);
       font-weight: var(--font-semibold);
@@ -69,6 +84,7 @@
       color: var(--text-primary);
       margin: 0;
     }
+
     h2 {
       font-family: var(--font-montserrat);
       font-weight: var(--font-semibold);
@@ -78,6 +94,7 @@
       color: var(--text-primary);
       margin: 0;
     }
+
     h3 {
       font-family: var(--font-montserrat);
       font-weight: var(--font-semibold);
@@ -87,6 +104,7 @@
       color: var(--text-primary);
       margin: 0;
     }
+
     h4 {
       font-family: var(--font-montserrat);
       font-weight: var(--font-semibold);
@@ -95,9 +113,11 @@
       color: var(--text-default);
       margin: 0;
     }
+
     strong {
       font-weight: var(--font-semibold);
     }
+
     .body-lg {
       font-family: var(--font-helvetica-neue);
       font-size: var(--text-lg);

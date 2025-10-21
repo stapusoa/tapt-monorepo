@@ -1,169 +1,247 @@
-import { useState, useEffect } from 'react'
-import { Link, useLocation } from "react-router-dom"
-import { cn } from "@/lib/utils"
-import { navitems, PHONE_NUMBER } from "./constants"
-import type { NavigationProps } from "./types"
-import { Icon } from "@/components/ui/Icon/Icon"
+'use client'
 
-export function Navigation({ onNavigate, heroHeight = 600 }: NavigationProps) {
-  const location = useLocation()
-  const isHomePage = location.pathname === "/"
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+import { useEffect, useState, useRef } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { cn } from '@/lib/utils'
+import { IconButton } from '@/components/ui'
+import { navitems, type NavigationProps, BREAKPOINTS } from '@/components/ui/navigation'
+import { MenuPopup } from '@/components/ui/menu'
 
-  const logowhite = `${import.meta.env.VITE_API_URL}/assets/logo-contrast.webp`
-  const logoprimary = `${import.meta.env.VITE_API_URL}/assets/logo-primary.webp`
-console.log("API URL:", import.meta.env.VITE_API_URL)
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen((prev) => !prev)
-  }
-
-  const handleCallClick = () => {
-    if (window.confirm(`Call ${PHONE_NUMBER}?`)) {
-      window.location.href = `tel:${PHONE_NUMBER}`
-    }
-  }
+function useViewport(heroHeight: number) {
+  const [width, setWidth] = useState(() => window.innerWidth)
+  const [scrolled, setScrolled] = useState(() => window.scrollY > heroHeight)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > heroHeight)
+    const handleResize = () => setWidth(window.innerWidth)
+    const handleScroll = () => setScrolled(window.scrollY > heroHeight)
+
+    window.addEventListener('resize', handleResize)
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [heroHeight])
 
+  return { width, scrolled }
+}
+
+export function Navigation({
+  onLogoClick,
+  onShopClick,
+  onSellClick,
+  onCartClick,
+  cartItemCount = 0,
+  onNavigate,
+  heroHeight = 600,
+}: NavigationProps) {
+  const location = useLocation()
+  const isHomePage = location.pathname === '/'
+  const { width, scrolled } = useViewport(heroHeight)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const userButtonRef = useRef<HTMLButtonElement>(null)
+
+  const logowhite = '/logo/logo-contrast.svg'
+  const logoprimary = '/logo/logo-alt.svg'
+
+  // Simulated signed-in state for demonstration; replace with actual auth state
+  const signedIn = true
+
+  // prevent background scroll when mobile menu open
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.classList.add('overflow-hidden')
-    } else {
-      document.body.classList.remove('overflow-hidden')
-    }
-  }, [isMobileMenuOpen])
+    document.body.classList.toggle('overflow-hidden', mobileMenuOpen)
+  }, [mobileMenuOpen])
+
+  // determine how many nav links to show
+  const visibleLinkCount =
+    width >= BREAKPOINTS['3xl']
+      ? 4
+      : width >= BREAKPOINTS['2xl']
+        ? 3
+        : width >= BREAKPOINTS.xl
+          ? 2
+          : width >= BREAKPOINTS.lg
+            ? 1
+            : 0
+
+  const showSeller = width >= BREAKPOINTS.lg
+
+  const isActiveLink = (page: string) =>
+    (location.pathname === '/' && page === 'home') ||
+    (page !== 'home' && location.pathname.includes(page))
+
+  const handleLinkClick = (page: string) => {
+    onNavigate?.(page as any)
+    if (page === 'home') onLogoClick?.()
+    if (page === 'shop') onShopClick?.()
+    if (page === 'sell') onSellClick?.()
+    setMobileMenuOpen(false)
+  }
+
+  // Compute hidden nav items for current breakpoint
+  const hiddenNavItems = navitems.slice(visibleLinkCount)
+
+  // Compose menu items for popup
+  const popupMenuItems = [
+    ...hiddenNavItems,
+    ...(signedIn
+      ? [
+        { page: 'profile', text: 'Profile' },
+        { page: 'settings', text: 'Settings' },
+        { page: 'about', text: 'About' },
+      ]
+      : [
+        { page: 'signin', text: 'Sign in / Sign up' },
+        { page: 'settings', text: 'Settings' },
+        { page: 'about', text: 'About' },
+      ]),
+  ]
 
   return (
     <>
       <nav
         className={cn(
-          "fixed top-0 z-50 w-full",
+          'fixed top-0 z-50 w-full transition-all duration-500 backdrop-blur-md',
           isHomePage
-            ? "transition-all duration-500 " + (isScrolled ? "bg-primary-95 backdrop-blur-md shadow-xl" : "bg-transparent")
-            : "bg-white shadow-md"
+            ? scrolled
+              ? 'bg-primary-95 shadow-xl'
+              : 'bg-transparent'
+            : 'bg-white shadow-md'
         )}
       >
-        <div className="flex flex-col items-center relative w-full">
-          <div className="flex flex-row items-center justify-between max-w-6xl w-full px-8 py-4">
-            {/* Logo */}
-            <Link to="/" onClick={() => { onNavigate('home'); setIsMobileMenuOpen(false) }} className="h-full w-auto p-0 bg-transparent hover:scale-105 transition-transform flex items-center">
-              <img
-                src={isHomePage ? logowhite : logoprimary}
-                alt="Planting Roots Realty"
-                className="h-full max-h-40 w-auto"
-              />          </Link>
-            {/* Desktop Navigation Menu */}
-            <ul className="hidden lg:flex gap-6 items-center">
-              {navitems.map((item) => {
-                const isActive =
-                  (location.pathname === '/' && item.page === 'home') ||
-                  (item.page !== 'home' && location.pathname.includes(item.page))
-                return (
-                  <li key={item.page} className="group">
-                    <Link
-                      to={item.page === 'home' ? '/' : `/${item.page}`}
-                      onClick={() => onNavigate(item.page)}
-                      className={cn(
-                        "relative transition-colors px-3 py-2 font-semibold text-secondary hover:text-secondary-light"
-                      )}
-                    >
-                      {item.text}
-                      {/* Single Underline */}
-                      <span
-                        className={cn(
-                          "absolute bottom-0 left-0 w-full h-[2px] pointer-events-none origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100",
-                          isActive && "scale-x-100",
-                          isActive ? "bg-secondary" : "bg-secondary-light"
-                        )}
-                      />
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-            {/* Phone CTA and Mobile Menu Toggle Button Wrapper */}
-            <div className="flex items-center gap-4">
-              {/* Icon-only Phone Button on mobile (<md) */}
-              <button
-                onClick={handleCallClick}
-                className={cn(
-                  "flex md:hidden items-center justify-center rounded-lg px-4 py-2 backdrop-blur-sm shadow-md transition-all text-white font-semibold text-sm uppercase",
-                  isHomePage ? "bg-white/20 hover:bg-white/30" : "bg-primary hover:bg-primary-dark"
-                )}
-                aria-label={`Call ${PHONE_NUMBER}`}
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <Icon name="phone" className="w-6 h-6" />
-                </span>
-              </button>
-              {/* Icon-only Phone Button on md to lg screens with "Learn More" text */}
-              <button
-                onClick={handleCallClick}
-                className={cn(
-                  "hidden md:flex lg:hidden items-center justify-center rounded-lg px-4 py-2 backdrop-blur-sm shadow-md transition-all text-white font-semibold text-sm uppercase",
-                  isHomePage ? "bg-white/20 hover:bg-white/30" : "bg-primary hover:bg-primary-dark"
-                )}
-                aria-label={`Learn More about ${PHONE_NUMBER}`}
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <Icon name="phone" className="w-6 h-6" />
-                  <span>Learn More</span>
-                </span>
-              </button>
-              {/* Full Phone Button on large screens */}
-              <button
-                onClick={handleCallClick}
-                className={cn(
-                  "hidden lg:flex items-center justify-center rounded-lg px-4 py-2 backdrop-blur-sm shadow-md transition-all text-white font-semibold text-sm uppercase",
-                  isHomePage ? "bg-white/20 hover:bg-white/30" : "bg-primary hover:bg-primary-dark"
-                )}
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <Icon name="phone" className="w-6 h-6" />
-                  <span> {PHONE_NUMBER} </span>
-                </span>
-              </button>
-              {/* Mobile Menu Toggle Button */}
-              <button
-                onClick={toggleMobileMenu}
-                className={cn(
-                  "flex lg:hidden p-2 items-center text-white justify-center rounded-md shadow-md transition-all font-semibold text-sm uppercase",
-                  isHomePage ? "bg-white/20 hover:bg-white/30" : "bg-primary hover:bg-primary-dark"
-                )}
-                aria-label="Toggle mobile menu"
-              >
-                <Icon name={isMobileMenuOpen ? "close" : "menu"} className="w-6 h-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+        <div
+          className={cn(
+            'max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4',
+            visibleLinkCount === 1 && 'justify-start'
+          )}
+        >
+          {/* 🔷 Logo */}
+          <Link
+            to="/"
+            onClick={() => handleLinkClick('home')}
+            className="flex items-center h-full transition-transform hover:scale-105"
+          >
+            <img
+              src={isHomePage && !scrolled ? logowhite : logoprimary}
+              alt="Koya Logo"
+              className="h-12 w-auto"
+            />
+          </Link>
 
-      {/* Mobile Menu Dropdown */}
-      {isMobileMenuOpen && (
-        <div className="fixed top-0 left-0 z-40 lg:z-40 md:z-40 sm:z-40 w-full h-screen bg-primary-95 backdrop-blur-md shadow-xl flex flex-col overflow-hidden">
-          <div className="flex flex-col flex-grow overflow-y-auto h-full px-6 py-6 pt-50">
-            <ul className="flex flex-col gap-4">
-              {navitems.map((item) => (
-                <li key={item.page}>
+          {/* 🔶 Links */}
+          {visibleLinkCount > 0 && (
+            <ul
+              className={cn(
+                'hidden md:flex gap-6 items-center flex-1',
+                visibleLinkCount === 1
+                  ? 'ml-6' // align next to logo
+                  : 'justify-center'
+              )}
+            >
+              {navitems.slice(0, visibleLinkCount).map((item) => (
+                <li key={item.page} className="group relative">
                   <Link
                     to={item.page === 'home' ? '/' : `/${item.page}`}
-                    onClick={() => { onNavigate(item.page); setIsMobileMenuOpen(false) }}
-                    className="block text-white font-semibold text-lg py-2 hover:text-secondary transition"
+                    onClick={() => handleLinkClick(item.page)}
+                    className={cn(
+                      'px-3 py-2 font-semibold transition-colors',
+                      isHomePage && !scrolled
+                        ? 'text-white hover:text-white/80'
+                        : 'text-default hover:text-secondary-light'
+                    )}
                   >
                     {item.text}
+                    <span
+                      className={cn(
+                        'absolute bottom-0 left-0 w-full h-[2px] origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100',
+                        isActiveLink(item.page) && 'scale-x-100',
+                        isHomePage && !scrolled ? 'bg-white' : 'bg-primary'
+                      )}
+                    />
                   </Link>
                 </li>
               ))}
             </ul>
+          )}
+
+          {/* 🟣 Action Buttons */}
+          <div className="flex items-center gap-3 ml-auto relative">
+            {showSeller && (
+              <button
+                onClick={onSellClick}
+                className={cn(
+                  'hidden lg:block px-6 py-3 rounded-lg font-semibold text-[15px] uppercase transition-opacity',
+                  isHomePage && !scrolled
+                    ? 'text-white hover:opacity-90'
+                    : 'text-default hover:text-secondary-light'
+                )}
+              >
+                Become a Seller
+              </button>
+            )}
+
+            {/* Search (md+) */}
+            {width >= BREAKPOINTS.md && (
+              <IconButton
+                name="search"
+                expandable
+                isHero={isHomePage && !scrolled}
+                isScrolled={scrolled}
+                expandedContent={
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    className="px-3 py-2 rounded-md border border-stone-300 focus:outline-none text-sm"
+                  />
+                }
+              />
+            )}
+
+            {/* Cart + User/Menu (always visible) */}
+            <IconButton
+              name="shoppingCart"
+              count={cartItemCount}
+              onClick={onCartClick}
+              isHero={isHomePage && !scrolled}
+              isScrolled={scrolled}
+            />
+            <IconButton
+              name={mobileMenuOpen ? 'close' : 'user'}
+              onClick={() => setMobileMenuOpen((o) => !o)}
+              isHero={isHomePage && !scrolled}
+              isScrolled={scrolled}
+            />
+            {/* Popup menu anchored to user icon */}
+            <div
+              className={cn(
+                'absolute right-0 mt-2 w-48 bg-primary-95 backdrop-blur-md rounded-lg shadow-lg border border-white/20 overflow-hidden transform transition-all duration-300 origin-top-right',
+                mobileMenuOpen
+                  ? 'opacity-100 scale-100 pointer-events-auto translate-y-0'
+                  : 'opacity-0 scale-95 pointer-events-none -translate-y-2'
+              )}
+              style={{ top: '100%' }}
+            >
+              <ul className="flex flex-col">
+                {popupMenuItems.map((item) => (
+                  <li key={item.page}>
+                    <Link
+                      to={item.page === 'home' ? '/' : item.page === 'signin' ? '/signin' : `/${item.page}`}
+                      onClick={() => {
+                        handleLinkClick(item.page)
+                        setMobileMenuOpen(false)
+                      }}
+                      className="block px-4 py-2 text-white hover:bg-white/10 transition"
+                    >
+                      {item.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-      )}
+      </nav>
     </>
   )
 }

@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "TruBalance Bodywork Massage LLC secure backend for managing bookings, client records, and massage therapy services.",
+  "description": "Koya: My Lemonade Stand secure backend for managing auth, customer records, and inventory services.",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -14,19 +14,21 @@
     "firebase:emulate": "firebase emulators:start"
   },
   "keywords": [
-    "TruBalance Bodywork",
-    "TruBalance Bodywork Massage",
-    "massage therapy utah",
-    "massage orem",
-    "orem massage therapist",
-    "orem massage therapy",
-    "muscle relaxation",
-    "stress relief",
-    "pain relief",
-    "massage booking",
-    "massage booking system",
-    "pain management",
-    "therapist"
+    "Koya",
+    "My Lemonade Stand",
+    "koya lemonade stand utah",
+    "my lemonade stand utah",
+    "utah lemonade stand",
+    "order crafts utah",
+    "crafts entrepreneurs",
+    "crafts marketplace",
+    "crafts shop",
+    "kids crafts",
+    "children crafts",
+    "kids entrepreneurs",
+    "children entrepreneurs",
+    "kids marketplace",
+    "children marketplace"
   ],
   "author": "Tapt Designs",
   "license": "ISC",

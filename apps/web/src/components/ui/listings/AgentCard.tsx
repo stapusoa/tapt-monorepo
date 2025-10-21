@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card/cardNew"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
 

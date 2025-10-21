@@ -1,4 +1,4 @@
-import { cva } from "class-variance-authority"
+import { cva, type VariantProps } from 'class-variance-authority'
 
 export const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-md font-karla font-medium tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 ring-offset-background",
@@ -62,3 +62,26 @@ export const buttonVariants = cva(
     },
   }
 )
+
+export const sizeClasses = cva(
+  'inline-flex items-center justify-center rounded-full transition-colors duration-200',
+  {
+    variants: {
+      size: {
+        sm: 'w-8 h-8 text-sm',
+        md: 'w-10 h-10 text-base',
+        lg: 'w-12 h-12 text-lg',
+      },
+      state: {
+        hero: 'bg-neutral-200/30 hover:bg-neutral-300/30 active:bg-neutral-400/30 text-white',
+        scrolled: 'bg-neutral-600/30 hover:bg-neutral-700/30 active:bg-neutral-700/30 text-default',
+      },
+    },
+    defaultVariants: {
+      size: 'md',
+      state: 'hero',
+    },
+  }
+)
+
+export type IconButtonSize = VariantProps<typeof sizeClasses>['size']

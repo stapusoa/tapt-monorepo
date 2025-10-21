@@ -1,21 +1,16 @@
 import type { OverlayVariant } from "./constants"
 import type { PageType } from "@/components/ui/navigation/types"
-
-export type Breakpoint = "sm" | "md" | "lg";
-
-export interface BGProps {
-  fixed?: boolean;
-  images?: Record<Breakpoint, string>; // responsive images
-  fallback?: string; // fallback for single image
-  alt?: string;
-  className?: string;
-}
+import type { BGProps } from "@/components/ui/image/types"
 
 export interface FeatureProps {
-  title: string;
-  description: string;
-  buttons?: { text: string; to: string }[];
-  onNavigate: (page: PageType) => void;
+  title?: string
+  description?: string
+  buttons?: { text: string; to: string }[]
+  layout?: "text" | "cards" | "carousel"
+  items?: any[] // for cards or carousel
+  onNavigate: (page: PageType) => void
+  onCardClick?: (item: any) => void
+  onAddToCart?: (item: any) => void
 }
 
 export interface OverlayProps {
@@ -29,14 +24,18 @@ export interface HeroButton {
 }
 
 export interface GalleryProps {
-  images: string[];
+  images: {
+    src: string
+    alt?: string
+    type?: "image" | "video"
+  }[]
   className?: string;
   size?: "sm" | "md" | "lg";
 }
 
 export interface HeroContent {
-  title: string;
-  subheader?: string;
+  title: string | React.ReactNode;
+  subheader?: string | React.ReactNode;
   badge?: string;
   buttons?: HeroButton[];
   gallery?: GalleryProps;
@@ -58,4 +57,19 @@ export interface HeroProps {
   content?: HeroContent;
   parallax?: boolean;
   children?: React.ReactNode;
+}
+
+export type Breakpoint = "sm" | "md" | "lg" | "xl";
+
+export interface Product {
+  id: string | number
+  title: string
+  description?: string
+  price: number
+  image: string
+  slug?: string
+  category?: string
+  tags?: string[]
+  inStock?: boolean
+  rating?: number
 }

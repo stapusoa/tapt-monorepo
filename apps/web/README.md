@@ -1,6 +1,6 @@
-# TruBalance Bodywork – Website (`apps/web`)
+# Koya – Website (`apps/web`)
 
-This is the main marketing and listings website for TruBalance Bodywork LLC, built with React, Vite, Tailwind CSS, and TypeScript. It lives inside the `trubalance-bodywork` monorepo under `apps/web`. It uses `pnpm` as the package manager.
+This is the main marketing and listings website for Koya , built with React, Vite, Tailwind CSS, and TypeScript. It lives inside the `koya` monorepo under `apps/web`. It uses `pnpm` as the package manager.
 
 Content is sourced from [Sanity](https://www.sanity.io/) via a read-only integration. Sanity is **not included** in this repo — it is managed separately.
 
@@ -10,12 +10,12 @@ Content is sourced from [Sanity](https://www.sanity.io/) via a read-only integra
 
 This folder is part of a larger monorepo.
 Key structure:
-trubalance-bodywork/
+koya/
 ├── apps/
-│   ├── web/       → Frontend (public-facing website)
-│   └── backend/   → Backend (API and server logic)
-├── packages/      → Shared components/utilities
-└── …              → Other configuration or tooling files
+│ ├── web/ → Frontend (public-facing website)
+│ └── backend/ → Backend (API and server logic)
+├── packages/ → Shared components/utilities
+└── … → Other configuration or tooling files
 
 ---
 
@@ -29,6 +29,7 @@ From the monorepo root:
 pnpm install
 ### Install dependencies
 ```
+
 This installs all dependencies across the monorepo, including shared packages.
 
 ### Run development server

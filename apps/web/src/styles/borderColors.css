@@ -32,4 +32,16 @@
   .border-info { border-color: var(--color-info); }
   .border-info-light { border-color: var(--color-info-light); }
   .border-info-dark { border-color: var(--color-info-dark); }
+
+  .border-neutral-50\/30 { border-color: var(--color-neutral-50/30)}
+  .border-neutral-100\/30 { border-color: var(--color-neutral-100/30)}
+  .border-neutral-200\/30 { border-color: var(--color-neutral-200/30)}
+  .border-neutral-300\/30 { border-color: var(--color-neutral-300/30)}
+  .border-neutral-400\/30 { border-color: var(--color-neutral-400/30)}
+  .border-neutral-500\/30 { border-color: var(--color-neutral-500/30)}
+  .border-neutral-600\/30 { border-color: var(--color-neutral-600/30)}
+  .border-neutral-700\/30 { border-color: var(--color-neutral-700/30)}
+  .border-neutral-800\/30 { border-color: var(--color-neutral-800/30)}
+  .border-neutral-900\/30 { border-color: var(--color-neutral-900/30)}
+  .border-neutral-1000\/30 { border-color: var(--color-neutral-1000/30)}
 }

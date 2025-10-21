@@ -1,11 +1,5 @@
 import type { OverlayVariant } from "@/lib/constants"
 
-export const bgStyles = {
-  lg: "fixed z-0 inset-0 size-full object-cover object-top-right hidden lg:block",
-  md: "fixed z-0 inset-0 size-full object-cover bg-center hidden md:block lg:hidden",
-  sm: "fixed z-0 inset-0 size-full object-cover bg-center block md:hidden",
-}
-
 export const OVERLAY_STYLES: Record<OverlayVariant, string> = {
   gradient: "fixed inset-0 w-full h-screen bg-gradient-to-br from-[#5e4684]/80 via-[#7a5ba8]/70 to-[#45a9a7]/60 pointer-events-none z-0",
   dark: "fixed inset-0 w-full h-screen bg-black/20 pointer-events-none z-0",
@@ -22,10 +16,10 @@ export const GALLERY_SIZE_STYLES: Record<"sm" | "md" | "lg", string> = {
 }
 
 export const HERO_CONTENT_STYLES = {
-  container: "relative z-10 flex flex-col gap-4 p-8",
+  container: "absolute z-10 w-full flex flex-col gap-4 p-8",
 
-  title: "flex relative w-full max-w-285 shrink-0 justify-center animate-fade-in font-merriweather text-center not-italic text-6xl md:text-5xl sm:text-4xl text-white ",
-  subheader: "flex relative w-full max-w-150 mb-8 text-center font-karla text-white/90 text-xl leading-relaxed animate-fade-in",
+  title: "flex relative w-full shrink-0 animate-fade-in font-primary text-left not-italic text-9xl md:text-5xl sm:text-4xl text-white ",
+  subheader: "flex relative w-full max-w-150 mb-8 text-left font-secondary text-white/90 text-5xl leading-10 animate-fade-in",
 
   buttons: "flex gap-3 z-3",
   button:

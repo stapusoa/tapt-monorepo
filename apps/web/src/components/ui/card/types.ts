@@ -18,7 +18,7 @@ export interface CardProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
   size?: CardSize
   color?: CardColor
   variant?: CardVariant
-  badge?: CardBadge
+  badge?: CardBadge | string
   price?: number
   amenities?: CardAmenity[]
   title?: string
@@ -32,4 +32,7 @@ export interface CardProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
   imagePosition?: CardImagePosition
   alignH?: CardHorizAlign
   alignV?: CardVertAlign
+  onClick?: () => void
+  onAddToCart?: () => void
+  cardId?: string | number
 }
