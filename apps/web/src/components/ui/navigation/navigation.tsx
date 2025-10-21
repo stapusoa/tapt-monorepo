@@ -1,16 +1,16 @@
 'use client'
-
-import { useEffect, useState, useRef } from 'react'
+// useRef is commented out for now as MenuPopup is not used
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import { IconButton } from '@/components/ui'
 import { navitems, type NavigationProps, BREAKPOINTS } from '@/components/ui/navigation'
-import { MenuPopup } from '@/components/ui/menu'
+// import { MenuPopup } from '@/components/ui/menu'
 
 function useViewport(heroHeight: number) {
   const [width, setWidth] = useState(() => window.innerWidth)
   const [scrolled, setScrolled] = useState(() => window.scrollY > heroHeight)
-  const [menuOpen, setMenuOpen] = useState(false)
+  // const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth)
@@ -40,7 +40,7 @@ export function Navigation({
   const isHomePage = location.pathname === '/'
   const { width, scrolled } = useViewport(heroHeight)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const userButtonRef = useRef<HTMLButtonElement>(null)
+  // const userButtonRef = useRef<HTMLButtonElement>(null)
 
   const logowhite = '/logo/logo-contrast.svg'
   const logoprimary = '/logo/logo-alt.svg'

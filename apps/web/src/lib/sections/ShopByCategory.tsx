@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
-import { ProductCard } from '@/lib/layout/ProductCard'
+import { Card } from '@/components/ui/card'
 import type { Product } from '@/lib/types'
 
 type ShopByCategoryProps = {
@@ -37,7 +37,7 @@ export const ShopByCategory = ({ products }: ShopByCategoryProps) => {
 
       {/* Category Tabs */}
       <div className="flex flex-col mx-auto max-w-7xl items-start gap-3 mb-4">
-                {/* Search Bar */}
+        {/* Search Bar */}
         <input
           type="text"
           placeholder="Search products..."
@@ -64,7 +64,24 @@ export const ShopByCategory = ({ products }: ShopByCategoryProps) => {
       {/* Products Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto max-w-7xl gap-6">
         {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <Card
+            key={product.id}
+            size="md"                    // optional, defaults to "md"
+            color="primary"    
+            product={undefined}          // optional, defaults to "primary"
+            variant="filled"             // optional, "filled" | "outlined" | "ghost"
+            orientation="vertical"       // vertical or horizontal layout
+            image={product.imageUrl}     // string URL of the product image
+            title={product.name}         // product title
+            description={product.description} // optional description
+            badge={product.badge}        // optional category badge (e.g., "New", "Hot")
+            price={product.price}        // optional price
+            avatarTag={product.seller && {
+              image: product.seller.avatar,
+              name: product.seller.name
+            }}                            // optional avatar for seller
+            className="cursor-pointer"
+          />
         ))}
       </div>
 

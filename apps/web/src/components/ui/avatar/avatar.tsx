@@ -1,50 +1,48 @@
-import * as React from "react"
-import * as AvatarPrimitive from "@radix-ui/react-avatar"
-
+import React from "react"
+import { avatarVariants } from "./styles"
 import { cn } from "@/lib/utils"
+import type { AvatarProps } from "./types"
 
-export function Avatar({
+export const Avatar: React.FC<AvatarProps> = ({
+  size = "md",
+  color = "gray",
+  variant = "solid",
+  shape = "circle",
+  withPointer = "none",
+  image,
+  name,
+  initial,
+  placeholder = "?",
   className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root>) {
+}) => {
+  const getInitials = () => {
+    if (initial) return initial
+    if (name) {
+      const names = name.trim().split(" ")
+      if (names.length === 1) return names[0][0].toUpperCase()
+      return (names[0][0] + names[1][0]).toUpperCase()
+    }
+    return placeholder
+  }
+
   return (
-    <AvatarPrimitive.Root
-      data-slot="avatar"
+    <div
       className={cn(
-        "relative flex size-8 shrink-0 overflow-hidden rounded-full",
+        avatarVariants({ size, color, variant, shape, withPointer }),
         className
       )}
-      {...props}
-    />
-  )
-}
-
-export function AvatarImage({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Image>) {
-  return (
-    <AvatarPrimitive.Image
-      data-slot="avatar-image"
-      className={cn("aspect-square size-full", className)}
-      {...props}
-    />
-  )
-}
-
-export function AvatarFallback({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
-  return (
-    <AvatarPrimitive.Fallback
-      data-slot="avatar-fallback"
-      className={cn(
-        "bg-muted flex size-full items-center justify-center rounded-full",
-        className
+      aria-label={name || placeholder}
+      role="img"
+    >
+      {image ? (
+        <img
+          src={image}
+          alt={name || placeholder}
+          className="w-full h-full object-cover"
+        />
+      ) : (
+        <span>{getInitials()}</span>
       )}
-      {...props}
-    />
+    </div>
   )
 }
-

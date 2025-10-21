@@ -7,6 +7,7 @@ export type PageType =
   | 'featured'
   | 'shop'
   | 'services'
+  | 'product-details'
   | 'blog'
   | 'contact'
   | 'shop'

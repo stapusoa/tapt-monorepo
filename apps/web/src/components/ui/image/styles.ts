@@ -1,5 +1,5 @@
 export const baseImageClass =
-  "block w-full h-auto object-cover rounded-lg transition-opacity ease-in-out duration-300"
+  "block size-full object-cover transition-opacity ease-in-out duration-300"
 
 export const loadingClass = "opacity-50 blur-sm"
 

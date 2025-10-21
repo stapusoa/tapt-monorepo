@@ -1,242 +1,137 @@
-import * as React from "react"
+"use client"
+
 import { cn } from "@/lib/utils"
-import { clsx } from "clsx"
-// import { Image } from "@/components/image"
+import { Image } from "@/components/ui/image"
 import { Badge } from "@/components/ui/badge"
-import { Bed, Bath, Square, MapPin } from "lucide-react"
-import { cardStyles, getImageClasses, getContentAlignH, getContentAlignV } from "./styles"
+import { Button } from "@/components/ui/button"
+import { Avatar } from "@/components/ui/avatar"
 import type { CardProps } from "./types"
-
-type CardRootProps<T extends React.ElementType> = {
-  as?: T
-  className?: string
-} & Omit<React.ComponentPropsWithoutRef<T>, "as" | "className">
-
-export const CardRoot = React.forwardRef(
-  <T extends React.ElementType = "div">(
-    { as, className, ...props }: CardRootProps<T>,
-    ref: React.Ref<any>
-  ) => {
-    const Component = as || "div"
-    return React.createElement(Component, { ref, className: cn(className), ...props })
-  }
-)
-
-CardRoot.displayName = "CardRoot"
-
-// Header for title/location/price
-export function CardHeader({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <div className={clsx("flex flex-col", className)}>{children}</div>
-}
-
-export function CardTitle({ children }: { children: React.ReactNode }) {
-  return <h3 className="font-semibold text-lg text-header line-clamp-1">{children}</h3>
-}
-
-export function CardLocation({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center text-body text-sm">
-      <MapPin className="w-4 h-4 mr-1" />
-      {children}
-    </div>
-  )
-}
-
-export function CardPrice({ children }: { children: React.ReactNode }) {
-  return <p className="text-2xl font-bold text-primary">{children}</p>
-}
-
-type CardContentProps = {
-  children: React.ReactNode
-  className?: string
-  alignH?: "left" | "center" | "right"
-  alignV?: "top" | "center" | "bottom"
-}
-
-export function CardContent({ children, className, alignH = "left", alignV = "top" }: CardContentProps) {
-  return (
-    <div
-      className={clsx(
-        "flex flex-col",
-        getContentAlignH(alignH),
-        getContentAlignV(alignV),
-        className
-      )}
-    >
-      {children}
-    </div>
-  )
-}
-
-export function CardFooter({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-wrap gap-1 pt-2">{children}</div>
-}
-
-type CardImageProps = {
-  src: string;
-  alt?: string;
-  className?: string;
-  background?: boolean;
-  fill?: boolean;
-};
-
-export function CardImage({
-  src,
-  alt = "",
-  className,
-  background = false,
-  fill = false,
-}: CardImageProps) {
-  return (
-    <div
-      className={clsx(
-        fill ? "relative" : "",
-        background ? "absolute inset-0 z-0 pointer-events-none" : "overflow-hidden",
-        className
-      )}
-    >
-      <img
-        src={src}
-        alt={alt}
-        className={clsx(
-          fill ? "absolute inset-0 w-full h-full object-cover" : "w-full h-full object-cover",
-          background && "opacity-20"
-        )}
-        style={background ? { filter: "brightness(0.8)" } : undefined}
-      />
-    </div>
-  )
-}
-
-const iconMap = {
-  bed: Bed,
-  bath: Bath,
-  sqft: Square,
-}
-
-const formatPrice = (num?: number) =>
-  typeof num === "number"
-    ? new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      }).format(num)
-    : ""
+import { getCardClasses, getBadgeClasses, getImageClasses } from "./styles"
 
 export function Card({
-  classname,
-  children,
+  className,
   size = "md",
   color = "primary",
   variant = "filled",
-  badge,
-  price,
-  amenities,
-  title,
-  description,
-  location,
-  loading = false,
-  image,
-  tag = [],
   orientation = "vertical",
-  imagePosition = "inline",
   alignH = "left",
   alignV = "top",
-  ...props
+  image,
+  imagePosition = "inline",
+  badge,
+  title,
+  product,
+  description,
+  location,
+  tags = [],
+  price,
+  avatarTag,
+  buttonLabel = "Add to Cart",
+  onClick,
+  onButtonClick,
+  onAddToCart,
 }: CardProps) {
-  const imageIsBackground = image && imagePosition === "background"
-  const imageIsInline = image && imagePosition === "inline"
+  const imageUrl = typeof image === "string" ? image : image?.url || "/placeholder.svg"
+  const displayBadge = badge
 
-  // Enhance children to inject alignH and alignV into any CardContent child
-  const enhancedChildren = React.Children.map(children, (child) => {
-  if (React.isValidElement<CardContentProps>(child) && child.type === CardContent) {
-    return React.cloneElement(child, { alignH, alignV })
-  }
-  return child
-})
+  const formatPrice = (value: number) =>
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+    }).format(value)
 
   return (
-    <CardRoot
-      className={clsx(
-        cardStyles({ size, color, variant, orientation, alignH, alignV }),
-        orientation === "horizontal" && size !== "sm" && "gap-6",
-        classname
-      )}
-      {...props}
+    <div
+      data-slot="card"
+      onClick={onClick}
+      className={getCardClasses(size, color, variant, orientation, alignH, alignV, className)}
     >
-      {imageIsInline && (
-        <CardImage
-          src={typeof image === "string" ? image : image?.url || ""}
-          alt={title}
-          className={clsx(getImageClasses(imagePosition, orientation), size === "sm" ? "rounded-none" : "rounded-lg")}
-        />
+      {/* --- Image --- */}
+      {image && (
+        <div className={cn("relative self-stretch", orientation === "horizontal" && "w-2/3", imagePosition === "background" && "h-full")}>
+          <Image
+            src={imageUrl}
+            alt={title || "Card image"}
+            rounded={size !== "sm" ? "rounded-lg" : ""}
+            className={getImageClasses(imagePosition, orientation)}
+          />
+          {displayBadge && (
+            <Badge className={getBadgeClasses(size)}>{displayBadge}</Badge>
+          )}
+          {imagePosition === "background" && (
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
+          )}
+        </div>
       )}
 
-      <CardContent
-        className={clsx(
-          size === "sm" ? "p-4 gap-3" : "p-0",
-          "relative z-10",
-          size !== "sm" && "gap-3"
+      {/* --- Content --- */}
+      <div
+        className={cn(
+          "flex flex-col w-full gap-3 relative z-20",
+          imagePosition === "background" && "absolute bottom-0 text-white",
+          size === "sm" && "px-4 pb-4"
         )}
-        alignH={alignH}
-        alignV={alignV}
       >
-        <CardHeader>
-          {title && <CardTitle>{title}</CardTitle>}
-          {location && <CardLocation>{location}</CardLocation>}
-          {typeof price === "number" && <CardPrice>{formatPrice(price)}</CardPrice>}
-        </CardHeader>
+        {title && <h3 className="font-semibold text-lg line-clamp-1">{title}</h3>}
 
-        {Array.isArray(amenities) && amenities.length > 0 && (
-          <div className="flex items-center gap-4 text-sm text-body">
-            {amenities.map((amenity, idx) => {
-              const key = typeof amenity === "string" ? amenity : amenity.icon
-              const label = typeof amenity === "string" ? amenity : amenity.label
-              const Icon = iconMap[key as keyof typeof iconMap]
-              return (
-                <div key={idx} className="flex items-center">
-                  {Icon && <Icon className="w-4 h-4 mr-1" />}
-                  {label}
-                </div>
-              )
-            })}
+        {avatarTag && (
+          <div className="flex items-center gap-2">
+            <Avatar
+              size="sm"
+              image={avatarTag.image}
+              name={avatarTag.name}
+              initial={avatarTag.initial}
+              shape="circle"
+            />
+            {avatarTag.name && <span className="text-sm">{avatarTag.name}</span>}
           </div>
         )}
 
-        {description && <p className="text-sm text-body line-clamp-2">{description}</p>}
+        {location && <p className="text-sm opacity-80">📍 {location}</p>}
 
-        {tag?.length > 0 && (
-          <CardFooter>
-            {tag.slice(0, 3).map((t) => (
-              <Badge key={t} variant="filled" color="neutral" className="text-xs">
-                {t}
-              </Badge>
-            ))}
-            {tag.length > 3 && (
-              <Badge variant="filled" color="neutral" className="text-xs">
-                +{tag.length - 3} more
-              </Badge>
-            )}
-          </CardFooter>
+        {description && (
+          <p className="text-sm opacity-90 line-clamp-2 leading-relaxed">{description}</p>
         )}
 
-        {enhancedChildren}
-      </CardContent>
+        {tags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {tags.slice(0, 3).map((tag, i) => (
+              <Badge key={i} variant="outlined" color="neutral" className="capitalize text-xs">
+                {tag}
+              </Badge>
+            ))}
+            {tags.length > 3 && (
+              <Badge variant="outlined" color="neutral" className="text-xs">
+                +{tags.length - 3} more
+              </Badge>
+            )}
+          </div>
+        )}
 
-      {imageIsInline && badge && (
-        <Badge variant="filled" color="default" className="absolute shadow-md z-100 top-2 left-2 capitalize">
-          {badge}
-        </Badge>
-      )}
-
-      {imageIsBackground && (
-        <CardImage
-          src={typeof image === "string" ? image : image?.url || ""}
-          alt={title}
-          background
-        />
-      )}
-    </CardRoot>
+        {(price !== undefined || onAddToCart || onButtonClick) && (
+          <div className="flex items-center justify-between pt-3 mt-auto">
+            {typeof price === "number" && (
+              <p className="text-lg font-semibold text-primary">
+                {formatPrice(price)}
+              </p>
+            )}
+            {product && onAddToCart && (
+              <Button
+                size="sm"
+                variant="filled"
+                className="rounded-lg px-4 py-2 text-sm font-semibold"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  if (product) onAddToCart?.(product) // ✅ only call if product exists
+                }}
+              >
+                {buttonLabel || "Add to Cart"}
+              </Button>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
   )
 }

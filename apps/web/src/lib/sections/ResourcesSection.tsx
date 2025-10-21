@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card/card"
+import { Card } from "@/components/ui/card/card"
 import { Button } from "@/components/ui/button"
 import type { PageType } from "@/components/ui/navigation/types"
 
@@ -60,11 +60,12 @@ export function ResourcesSection({ onNavigate }: { onNavigate: (page: PageType) 
               {resources.map((resource, index) => (
                 <Card
                   key={index}
+                  product={undefined} // No product associated
                   className={`border border-gray-200 hover:shadow-lg transition-all duration-300 animate-fade-in-up hover:-translate-y-1 cursor-pointer group`}
                   style={{ animationDelay: `${(index + 1) * 100}ms` }}
                   onClick={() => onNavigate('contact')}
                 >
-                  <CardContent className="p-6 text-center">
+                  <div className="p-6 text-center">
                     <div className="flex flex-col items-center space-y-4">
                       <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
                         {resource.icon}
@@ -83,7 +84,7 @@ export function ResourcesSection({ onNavigate }: { onNavigate: (page: PageType) 
                         Learn More
                       </Button>
                     </div>
-                  </CardContent>
+                  </div>
                 </Card>
               ))}
             </div>

@@ -10,6 +10,7 @@ export interface ImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElemen
   className?: string
   width?: number | string
   height?: number | string
+  rounded?: string
   style?: React.CSSProperties
   loading?: "lazy" | "eager"
   skeletonClassName?: string

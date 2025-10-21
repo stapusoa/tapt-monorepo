@@ -72,4 +72,16 @@ export interface Product {
   tags?: string[]
   inStock?: boolean
   rating?: number
+  imageUrl?: string
+  name?: string
+  badge?: string
+  seller?: {
+    avatar?: string;
+    name?: string;
+  };
+  categories?: string[];
 }
+
+export type ProductWithQuantity = Product & {
+  quantity: number;
+};

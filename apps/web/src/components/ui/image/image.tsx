@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { baseImageClass, loadingClass, fallbackClass, wrapperClass } from "./styles"
 import { FALLBACK_IMAGE } from './constants'
 import type { ImageProps } from "./types"
+import { cn } from "@/lib/utils"
 
 export const Image: React.FC<ImageProps> = ({
   src,
@@ -10,6 +11,7 @@ export const Image: React.FC<ImageProps> = ({
   className = "",
   width,
   height,
+  rounded = "",
   style,
   loading = "lazy",
   skeletonClassName,
@@ -28,7 +30,7 @@ export const Image: React.FC<ImageProps> = ({
 
   return (
     <div
-      className={wrapperClass}
+      className={cn(wrapperClass, rounded)}
       style={{
         width: typeof width === "number" ? `${width}px` : width,
         height: typeof height === "number" ? `${height}px` : height,
@@ -53,6 +55,7 @@ export const Image: React.FC<ImageProps> = ({
         className={[
           baseImageClass,
           className,
+          rounded,
           !loaded ? "opacity-0" : "opacity-100",
           errored ? fallbackClass : "",
         ].filter(Boolean).join(" ")}

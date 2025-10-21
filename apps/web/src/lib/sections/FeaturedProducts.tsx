@@ -44,20 +44,28 @@ export function FeaturedProducts({
 
         {/* Product Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.slice(0, 4).map((product) => (
-            <div
-              key={product.id}
-              onClick={() => onProductClick?.(product)}
-              className="cursor-pointer"
-            >
-              <Card
-                {...product}
-                id={String(product.id)}
-                onAddToCart={() => onAddToCart?.(product)}
-              />
-            </div>
-          ))}
-        </div>
+  {products.slice(0, 4).map((product) => (
+    <Card
+      key={product.id}
+      product={product}                 // ✅ Pass the product
+      size="md"
+      color="primary"
+      variant="filled"
+      orientation="vertical"
+      image={product.image}
+      title={product.title}
+      description={product.description}
+      badge={product.badge}
+      price={product.price}
+      avatarTag={product.seller && {
+        image: product.seller.avatar,
+        name: product.seller.name
+      }}
+    onClick={() => onProductClick?.(product)} // opens product details
+    onAddToCart={() => onAddToCart?.(product)}
+  />
+  ))}
+</div>
       </div>
     </div>
   )

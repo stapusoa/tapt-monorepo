@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card/card"
+import { Card } from "@/components/ui/card/card"
 import { Image } from "@/components/ui/image/image"
 
 const img1 = `${import.meta.env.VITE_API_URL}/assets/images/imgReviewsRochaIvan.webp`
@@ -86,11 +86,12 @@ export function TestimonialsSection() {
               {testimonials.map((testimonial, index) => (
                 <Card
                   key={index}
+                  product={undefined}
                   className={`border-0 shadow-xl bg-white hover:shadow-2xl transition-all duration-500 animate-fade-in-up hover:-translate-y-2 cursor-pointer`}
                   style={{ animationDelay: `${(index + 1) * 100}ms` }}
                   onClick={() => handleCardClick(testimonial.link)}
                 >
-                  <CardContent className="p-8">
+                  <div className="p-8">
                     <div className="flex gap-4 mb-6">
                       <Image
                         src={testimonial.image}
@@ -116,7 +117,7 @@ export function TestimonialsSection() {
                     <blockquote className="font-['Karla:Regular',_sans-serif] text-[#606060] text-[16px] leading-relaxed italic">
                       "{testimonial.text}"
                     </blockquote>
-                  </CardContent>
+                  </div>
                 </Card>
               ))}
             </div>

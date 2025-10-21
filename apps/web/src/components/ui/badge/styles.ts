@@ -19,7 +19,7 @@ export const badgeVariants = cva(
       },
       variant: {
         filled: "border-none text-white",
-        outlined: "border-2",
+        outlined: "border-1",
         ghost: "bg-transparent border-none",
       },
       shape: {

@@ -5,14 +5,13 @@ const meta: Meta<typeof Card> = {
   title: "Components/Card",
   component: Card,
   args: {
-    title: "Modern 2BR Apartment",
+    title: "Common Crafts",
     location: "San Diego, CA",
     description: "Bright, spacious layout with upgraded finishes and a private balcony.",
     price: 2600,
     image: "https://cdn.photos.sparkplatform.com/pbb/20240207171037326298000000-o.jpg",
-    badge: "apartment",
-    tag: ["Pet Friendly", "Washer/Dryer", "Pool"],
-    amenities: ["bed", "bath", "sqft"],
+    badge: "youth",
+    tags: ["Pet Friendly", "Washer/Dryer", "Pool"],
     orientation: "vertical",
     imagePosition: "inline",
     size: "md",
@@ -20,6 +19,12 @@ const meta: Meta<typeof Card> = {
     color: "primary",
     alignH: "left",
     alignV: "top",
+    avatarTag: {
+      image: "https://placehold.co/40x40/000/fff",
+      name: "John Doe"
+    },
+    onClick: () => alert("Card clicked"),
+    onAddToCart: () => alert("Add to cart clicked"),
   },
   argTypes: {
     badge: {
@@ -72,7 +77,7 @@ export const Horizontal: Story = {
 export const WithBackgroundImage: Story = {
   args: {
     imagePosition: "background",
-    color: "contrast",
+    color: "primary",
     variant: "filled",
   },
 }
@@ -89,8 +94,8 @@ export const PromoCard: Story = {
     title: "Limited Time Offer!",
     description: "Save $500 on your first month’s rent.",
     image: "https://placehold.co/400x300/ff0/000",
-    color: "promo",
+    color: "secondary",
     badge: "apartment",
-    tag: ["Special", "Limited Time"],
+    tags: ["Special", "Limited Time"],
   },
 }

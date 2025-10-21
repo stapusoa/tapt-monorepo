@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card/card"
+import { Card } from "@/components/ui/card/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -18,31 +18,31 @@ export function ContactPage() {
 
         {/* Contact Info Cards */}
         <div className="grid md:grid-cols-3 gap-4">
-          <Card className="text-center p-6 rounded-md border-1 border-neutral-300 bg-white" variant="outlined" color="neutral">
-            <CardContent className="p-0 w-full" alignH="center" alignV="center">
+          <Card product={undefined} className="text-center p-6 rounded-md border-1 border-neutral-300 bg-white" variant="outlined" color="neutral">
+            <div className="p-0 w-full flex flex-col items-center justify-center">
               <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Phone className="w-5 h-5 text-gray-600" />
               </div>
               <p className="text-gray-600 text-center w-full">(801) 400-9242</p>
-            </CardContent>
+            </div>
           </Card>
 
-          <Card className="text-center p-6 rounded-md border-1 border-neutral-300 bg-white">
-            <CardContent className="p-0 w-full" alignH="center" alignV="center">
+          <Card product={undefined} className="text-center p-6 rounded-md border-1 border-neutral-300 bg-white">
+            <div className="p-0 w-full flex flex-col items-center justify-center">
               <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="w-5 h-5 text-gray-600" />
               </div>
               <p className="text-gray-600 text-center w-full">plantingrootsrealty@gmail.com</p>
-            </CardContent>
+            </div>
           </Card>
 
-          <Card className="text-center p-6 rounded-md border-1 border-neutral-300 bg-white">
-            <CardContent className="p-0 w-full" alignH="center" alignV="center">
+          <Card product={undefined} className="text-center p-6 rounded-md border-1 border-neutral-300 bg-white">
+            <div className="p-0 w-full flex flex-col items-center justify-center">
               <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <MapPin className="w-5 h-5 text-gray-600" />
               </div>
               <p className="text-gray-600 text-center w-full">Lehi, UT, United States</p>
-            </CardContent>
+            </div>
           </Card>
         </div>
 
