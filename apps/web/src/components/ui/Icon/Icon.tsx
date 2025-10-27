@@ -5,10 +5,10 @@ import type { IconProps } from './types'
 
 const iconCss = (size: string | number) =>
   cn('[&>svg]:h-inherit [&>svg]:w-inherit', {
-    'h-8 min-w-8 w-8': size === 'lg',
-    'h-6 min-w-6 w-6': size === 'md',
-    'h-4 min-w-4 w-4': size === 'sm',
-  })
+  'h-8 w-8': size === 'lg',
+  'h-6 w-6': size === 'md',
+  'h-4 w-4': size === 'sm',
+})
 
 export const Icon = ({ name, size = 'md', className }: IconProps): React.ReactElement | null => {
   // safely cast and check if the name exists in the mapping

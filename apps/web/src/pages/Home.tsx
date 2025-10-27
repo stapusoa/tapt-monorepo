@@ -6,15 +6,21 @@ import {
   LogoCloud,
   TestimonialsSection,
   ResourcesSection,
-  FAQSection
+  FAQSection,
+  MarketStats
 } from "@/lib/sections/index"
+import { useNavigate } from "react-router-dom"
+
 import { BookingForm } from "@/lib/sections/BookingForm"
 import { Footer } from "@/components/ui/navigation/footer"
 import { OurStorySection } from "@/lib/sections/OurStorySection"
 import { FeaturedProducts } from '@/lib/sections/FeaturedProducts'
+import { FeaturedProjects } from '@/lib/sections/FeaturedProjects'
+
 import type { Product } from '@/lib/types' // adjust if you have a Product type
-import { ShopByCategory } from '@/lib/sections/ShopByCategory'
-import oilBottle from "@/assets/images/img_oilBottles.jpg"
+import { QuizSection } from '@/lib/sections/QuizSection'
+import { CTASection } from '@/lib/sections/CTASection'
+import img1 from "@/assets/images/sprint-proj1_lg.webp"
 
 const allProducts: Product[] = [
   {
@@ -22,7 +28,7 @@ const allProducts: Product[] = [
     title: "Sample Oil",
     description: "A sample product description.",
     price: 19.99,
-    image: oilBottle,
+    image: img1,
     category: "Oils"
   },
   {
@@ -30,7 +36,7 @@ const allProducts: Product[] = [
     title: "Sample Cream",
     description: "Another product description.",
     price: 29.99,
-    image: oilBottle,
+    image: img1,
     category: "Creams"
   }
 ]
@@ -41,37 +47,19 @@ export interface HomeProps {
   onProductClick?: (product: Product) => void;
 }
 
-interface CartItem extends Product {
-  quantity: number;
-}
 
-export function Home({ onNavigate, onAddToCart, onProductClick }: HomeProps) {
+export function Home({ onNavigate, onProductClick }: HomeProps) {
   const { enableHome001 = false } = useFlags()
   const [override, setOverride] = useState(false)
   const showNewHome = override || enableHome001
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
-  const [isCartOpen, setIsCartOpen] = useState(false)
+  const navigate = useNavigate()
 
-  // Internal handlers (fallback if props not provided)
-  const internalAddToCart = (product: Product) => {
-    setCartItems(prev => {
-      const existing = prev.find(item => item.id === product.id)
-      if (existing) {
-        return prev.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        )
-      }
-      return [...prev, { ...product, quantity: 1 }]
-    })
-    setIsCartOpen(true)
-  }
 
-  const internalProductClick = (product: Product) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const internalProductClick = (_product: Product) => {
     onNavigate("product-details")
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
-
-  const totalCartItems = cartItems.reduce((sum, item) => sum + item.quantity, 0)
 
   return (
     <div className="bg-white -mt-1 relative size-full">
@@ -103,13 +91,21 @@ export function Home({ onNavigate, onAddToCart, onProductClick }: HomeProps) {
         <div className="flex flex-col items-center relative size-full">
           <div className="box-border content-stretch flex flex-col items-center justify-start pb-0 pt-0 px-0 relative size-full">
             <HomeHero onNavigate={onNavigate} />
+            <MarketStats />
+             <FeaturedProjects
+               onNavigate={onNavigate}
+        onProjects={(id) => navigate(`/work/${id}`)}
+            />
             <FeaturedProducts
               onNavigate={onNavigate}
               products={allProducts}
-              onAddToCart={onAddToCart ?? internalAddToCart}
               onProductClick={onProductClick ?? internalProductClick}
             />
-            <ShopByCategory products={allProducts} />
+            <CTASection onNavigate={onNavigate} />
+            <QuizSection />
+                        <TestimonialsSection />
+            <FAQSection />
+
           </div>
         </div>
       )}

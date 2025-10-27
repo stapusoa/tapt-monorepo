@@ -69,15 +69,15 @@ export function TestimonialsSection() {
   }
 
   return (
-    <div className="relative shrink-0 w-full bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="relative shrink-0 w-full bg-white">
       <div className="flex flex-col items-center relative size-full">
         <div className="box-border content-stretch flex flex-col items-center justify-start px-2.5 py-[80px] relative w-full">
           <div className="max-w-[1140px] relative shrink-0 w-full">
-            <div className="text-center mb-16">
-              <h2 className="font-['Merriweather:Bold',_sans-serif] text-[#1a1a1a] text-[42px] font-bold mb-6">
+            <div className="text-center mb-16 typography">
+              <h2 className="title-lg text-[#1a1a1a] mb-6">
                 What My Clients Say
               </h2>
-              <p className="font-['Karla:Regular',_sans-serif] text-[#606060] text-[18px] max-w-2xl mx-auto leading-relaxed">
+              <p className="body-lg text-[#606060] max-w-2xl mx-auto">
                 Real experiences from families I've helped achieve their real estate goals
               </p>
             </div>
@@ -101,7 +101,7 @@ export function TestimonialsSection() {
                         height={64}
                       />
                       <div>
-                        <h3 className="font-['Merriweather:Bold',_sans-serif] text-[#1a1a1a] text-[18px] font-semibold">
+                        <h3 className="font-['Merriweather:Bold',_sans-serif] text-[#1a1a1a] text-[18px]">
                           {testimonial.name}
                         </h3>
                         <p className="font-['Karla:Regular',_sans-serif] text-[#606060] text-[14px]">

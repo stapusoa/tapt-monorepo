@@ -2,11 +2,16 @@ import React, { useState } from 'react'
 import ReactDOM from "react-dom/client"
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
 import { Home } from "./pages/Home"
+import { Work } from "./pages/Work"
+import { Services } from "./pages/Services"
+import { Resources } from "./pages/Resources"
+import { Contact } from "./pages/ContactPage"
 import { SanityPage } from "@/lib/cms/components/PageLayout"
 import { Navigation } from "@/components/ui/navigation"
+import { CaseStudy } from '@/lib/helpers/CaseStudy'
 import type { PageType } from "@/components/ui/navigation/types"
 import type { Product, ProductWithQuantity } from "@/lib/types"
-import { CartDrawer } from '@/lib/layout/CartDrawer'
+import { CartDrawer } from '@/lib/helpers/CartDrawer'
 import { withLDProvider } from "launchdarkly-react-client-sdk"
 import { Footer } from '@/components/ui/navigation/footer'
 import "./index.css"
@@ -61,6 +66,43 @@ function App() {
             />
           }
         />
+        <Route
+          path="/work"
+          element={
+            <Work
+              onNavigate={(id) => navigate(`/work/${id}`)}
+            />
+          }
+          />
+            <Route path="/work/:id" element=
+            {
+              <CaseStudy onNavigate={(page) => navigate(`/${page}`)} />
+            } />
+
+          <Route
+          path="/services"
+          element={
+            <Services
+              onNavigate={handleNavigate}
+            />
+          }
+          />
+          <Route
+          path="/contact"
+          element={
+            <Contact
+              onNavigate={handleNavigate}
+            />
+          }
+          />
+           <Route
+          path="/resources"
+          element={
+            <Resources
+              onNavigate={handleNavigate}
+            />
+          }
+          />
         <Route path="/:slug" element={<SanityPage />} />
       </Routes>
 

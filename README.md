@@ -1,6 +1,6 @@
-# Koya - MonoRepo Full Stack
+# Portfolio - MonoRepo Full Stack
 
-This is the Koya monorepo, which contains the full stack of our application:
+This is the Tapt Designs Portfolio monorepo, which contains the full stack of our application:
 • Frontend (web) → React + Vite + Tailwind (deployed on Vercel)
 • Backend (apps/backend) → Node/Express API (deployed on Render or Vercel)
 • CMS (apps/cms) → Sanity.io studio (deployed on Sanity)
@@ -13,7 +13,7 @@ This is the Koya monorepo, which contains the full stack of our application:
 Key structure:
 
 ```
-koya/
+tapt-monorepo/
 │
 ├── apps/
 │   ├── web/        # Frontend (React + Vite + Tailwind)
@@ -43,8 +43,8 @@ koya/
 
 1. Clone the Repo
    ```
-   git clone https://github.com/YOUR_USERNAME/koya-monorepo.git
-   cd koya-monorepo
+   git clone https://github.com/YOUR_USERNAME/tapt-monorepo.git
+   cd tapt-monorepo
    pnpm install
    ```
 2. Environment Variables
@@ -114,7 +114,7 @@ Create an `.env` file in the root of the monorepo with the following:
 # GENERAL SETTINGS
 # ──────────────────────────────
 NODE_ENV=development
-APP_NAME=koya
+APP_NAME=tapt
 MONOREPO=true
 
 # ──────────────────────────────
@@ -163,7 +163,7 @@ Then create an `.env.production` in the same directory.
 
 ```env
 NODE_ENV=production
-APP_NAME=koya
+APP_NAME=tapt
 
 # ──────────────────────────────
 # SANITY
@@ -171,16 +171,16 @@ APP_NAME=koya
 SANITY_PROJECT_ID=your_sanity_project_id
 SANITY_DATASET=production
 SANITY_API_VERSION=2025-09-21
-SANITY_STUDIO_URL=https://cms.koya.com
+SANITY_STUDIO_URL=https://cms.tapt.com
 SANITY_TOKEN=your_prod_sanity_token   # backend only
 
 # ──────────────────────────────
 # FIREBASE
 # ──────────────────────────────
 VITE_FIREBASE_API_KEY=prod_firebase_key
-VITE_FIREBASE_AUTH_DOMAIN=koya.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=koya-prod
-VITE_FIREBASE_STORAGE_BUCKET=koya.appspot.com
+VITE_FIREBASE_AUTH_DOMAIN=tapt.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=tapt-prod
+VITE_FIREBASE_STORAGE_BUCKET=tapt.appspot.com
 VITE_FIREBASE_MESSAGING_SENDER_ID=987654321
 VITE_FIREBASE_APP_ID=1:987654321:web:hijklmn
 VITE_FIREBASE_MEASUREMENT_ID=G-PROD12345
@@ -188,15 +188,15 @@ VITE_FIREBASE_MEASUREMENT_ID=G-PROD12345
 # ──────────────────────────────
 # AUTH0
 # ──────────────────────────────
-VITE_AUTH0_DOMAIN=koya.us.auth0.com
+VITE_AUTH0_DOMAIN=tapt.us.auth0.com
 VITE_AUTH0_CLIENT_ID=prod_auth0_client_id
 AUTH0_CLIENT_SECRET=prod_auth0_client_secret
-AUTH0_AUDIENCE=https://api.koya.com
+AUTH0_AUDIENCE=https://api.tapt.com
 
 # ──────────────────────────────
 # BACKEND
 # ──────────────────────────────
-VITE_BACKEND_URL=https://api.koya.com
+VITE_BACKEND_URL=https://api.tapt.com
 BACKEND_PORT=8080
 SESSION_SECRET=prod_super_secret_key
 
@@ -210,7 +210,7 @@ And create `.env.staging` as well.
 
 ```env
 NODE_ENV=staging
-APP_NAME=koya
+APP_NAME=tapt
 
 # ──────────────────────────────
 # SANITY
@@ -218,16 +218,16 @@ APP_NAME=koya
 SANITY_PROJECT_ID=your_sanity_project_id
 SANITY_DATASET=staging
 SANITY_API_VERSION=2025-09-21
-SANITY_STUDIO_URL=https://cms-staging.koya.com
+SANITY_STUDIO_URL=https://cms-staging.tapt.com
 SANITY_TOKEN=your_staging_sanity_token   # backend only
 
 # ──────────────────────────────
 # FIREBASE
 # ──────────────────────────────
 VITE_FIREBASE_API_KEY=staging_firebase_key
-VITE_FIREBASE_AUTH_DOMAIN=koya-staging.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=koya-staging
-VITE_FIREBASE_STORAGE_BUCKET=koya-staging.appspot.com
+VITE_FIREBASE_AUTH_DOMAIN=tapt-staging.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=tapt-staging
+VITE_FIREBASE_STORAGE_BUCKET=tapt-staging.appspot.com
 VITE_FIREBASE_MESSAGING_SENDER_ID=111111111
 VITE_FIREBASE_APP_ID=1:111111111:web:xyz123
 VITE_FIREBASE_MEASUREMENT_ID=G-STAGING123
@@ -235,15 +235,15 @@ VITE_FIREBASE_MEASUREMENT_ID=G-STAGING123
 # ──────────────────────────────
 # AUTH0
 # ──────────────────────────────
-VITE_AUTH0_DOMAIN=staging-koya.us.auth0.com
+VITE_AUTH0_DOMAIN=staging-tapt.us.auth0.com
 VITE_AUTH0_CLIENT_ID=staging_auth0_client_id
 AUTH0_CLIENT_SECRET=staging_auth0_client_secret
-AUTH0_AUDIENCE=https://api-staging.koya.com
+AUTH0_AUDIENCE=https://api-staging.tapt.com
 
 # ──────────────────────────────
 # BACKEND
 # ──────────────────────────────
-VITE_BACKEND_URL=https://api-staging.koya.com
+VITE_BACKEND_URL=https://api-staging.tapt.com
 BACKEND_PORT=8081
 SESSION_SECRET=staging_secret_key
 

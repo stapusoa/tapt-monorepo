@@ -33,7 +33,7 @@ export const buttonVariants = cva(
     compoundVariants: [
       // Outlined
       { variant: "outlined", color: "primary", class: "text-primary border-primary hover:bg-primary-opacity hover:border-primary-dark hover:text-primary-dark" },
-      { variant: "outlined", color: "secondary", class: "text-secondary border-secondary hover:bg-secondary-opacity hover:border-secondary-dark hover:text-secondary-dark" },
+      { variant: "outlined", color: "secondary", class: "text-black border-black hover:bg-secondary-opacity hover:border-secondary-dark hover:text-secondary-dark" },
       { variant: "outlined", color: "contrast", class: "text-white border-white hover:text-primary hover:bg-white " },
       { variant: "outlined", color: "critical", class: "text-error border-error hover:bg-error-opacity hover:border-error-dark hover:text-error-dark" },
       { variant: "outlined", color: "neutral", class: "text-neutral-800 border-neutral-300 hover:bg-neutral-200 hover:border-neutral-400 hover:text-neutral-900" },
@@ -45,7 +45,7 @@ export const buttonVariants = cva(
       { variant: "ghost", color: "neutral", class: "text-neutral-800 px-0 hover:text-black" },
       // Filled
       { variant: "filled", color: "primary", class: "text-white bg-primary hover:bg-primary-dark" },
-      { variant: "filled", color: "secondary", class: "text-white bg-secondary hover:bg-secondary-dark" },
+      { variant: "filled", color: "secondary", class: "text-white bg-black hover:bg-secondary-dark" },
       { variant: "filled", color: "contrast", class: "text-primary bg-white hover:bg-neutral-200" },
       { variant: "filled", color: "critical", class: "text-white bg-error hover:bg-error-dark" },
       { variant: "filled", color: "neutral", icon: false, class: "text-neutral-900 bg-neutral-200 hover:bg-neutral-300" },
@@ -73,7 +73,7 @@ export const sizeClasses = cva(
         lg: 'w-12 h-12 text-lg',
       },
       state: {
-        hero: 'bg-neutral-200/30 hover:bg-neutral-300/30 active:bg-neutral-400/30 text-white',
+        hero: 'bg-neutral-200/30 hover:bg-neutral-300/30 active:bg-neutral-400/30 text-secondary',
         scrolled: 'bg-neutral-600/30 hover:bg-neutral-700/30 active:bg-neutral-700/30 text-default',
       },
     },

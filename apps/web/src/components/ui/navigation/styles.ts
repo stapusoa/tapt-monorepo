@@ -7,7 +7,7 @@ export const navScrolled =
 export const navTransparent = "bg-transparent"
 
 export const linkBase =
-  "cursor-pointer h-full relative shrink-0 group text-white hover:text-white/80"
+  "cursor-pointer h-full relative shrink-0 group text-secondary hover:text-secondary-dark"
 
 export const activeUnderline =
   "absolute bg-white bottom-0 h-[3px] left-0 right-0 rounded-t-sm"

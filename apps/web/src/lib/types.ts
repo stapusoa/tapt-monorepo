@@ -1,6 +1,7 @@
 import type { OverlayVariant } from "./constants"
 import type { PageType } from "@/components/ui/navigation/types"
 import type { BGProps } from "@/components/ui/image/types"
+// import type { CaseStudyCategory, CaseStudyPhase } from "./constants"
 
 export interface FeatureProps {
   title?: string
@@ -19,8 +20,9 @@ export interface OverlayProps {
 }
 
 export interface HeroButton {
-  text: string;
+  text: string | React.ReactNode;
   onClick: () => void;
+  className?: string | React.ReactNode;
 }
 
 export interface GalleryProps {
@@ -85,3 +87,75 @@ export interface Product {
 export type ProductWithQuantity = Product & {
   quantity: number;
 };
+
+export interface WorkProps {
+  onNavigate: (page: PageType) => void;
+  case: CaseStudy;
+}
+
+// lib/types.ts
+
+export interface CaseStudyDesignSystem {
+  colors: { name: string; hex: string; usage: string }[];
+  typography: { name: string; size: string; weight: string; lineHeight: string; usage: string }[];
+  spacing?: { name: string; value: string; usage: string }[];
+  components: {
+    name: string;
+    description: string;
+    variants: string[];
+    states?: string[];
+    sizes?: string[];
+    features?: string[];
+    props: { name: string; type: string; description: string }[];
+    code?: string;
+  }[];
+}
+
+export interface CaseStudyProcess {
+  phase: string;
+  description: string;
+  deliverables: string[];
+  pages?: {
+    page: string;
+    sections: {
+      section: string;
+      details: string[];
+    }[];
+  }[];
+  children?: React.ReactNode;
+}
+
+export interface PhaseCardProps {
+  phaseNumber: number;
+  title: string;
+  description: string;
+  children?: React.ReactNode;
+}
+
+export interface CaseStudy {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: string;
+  tag: string;
+  team: string[] | React.ReactNode;
+  role: string[] | React.ReactNode;
+  duration: string;
+  challenge: string;
+  solution: string;
+  impact: string[];
+  image: string;
+  process: CaseStudyProcess[];
+  designSystem?: CaseStudyDesignSystem;
+}
+
+// ✅ React component props (separate)
+export interface CaseStudyProps {
+  onNavigate: (page: PageType) => void;
+  caseStudy?: CaseStudy;
+}
+
+export interface ProjectCardProps {
+  project: CaseStudy;
+  onNavigate?: (id: string) => void;
+}

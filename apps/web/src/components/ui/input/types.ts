@@ -1,19 +1,21 @@
 import type * as React from "react"
-import type { VariantProps } from "class-variance-authority"
-import type { inputVariants } from "./styles"
-import type { InputSize, InputVariant } from "./constants"
 
-export interface EnhancedInputProps
-  extends Omit<React.ComponentProps<"input">, "size" | "placeholder">,
-    Omit<VariantProps<typeof inputVariants>, "size" | "variant"> {
-  leftIcon?: React.ReactNode
-  rightIcon?: React.ReactNode
-  label?: boolean
-  error?: boolean
+export interface InputProps extends NativeInput {
+  errorText?: string
+  fullWidth?: boolean
+  isInvalid?: boolean
+  isDisabled?: boolean
+  focusOnInput?: boolean
+  label?: string
   helperText?: string
-  placeholder?: string
-  size?: InputSize
-  variant?: InputVariant
-  children?: React.ReactNode
-  className?: string
+  slotBefore?: React.ReactElement
+  slotAfter?: React.ReactElement
+  onClear?: (e: React.MouseEvent | React.KeyboardEvent) => void
+  onChange?:
+    | React.ChangeEventHandler<HTMLInputElement>
+    | React.FormEventHandler<HTMLInputElement>
+  /** Useful for accessing the outer container element rather than the input itself */
+  containerRef?: React.Ref<HTMLDivElement>
 }
+
+export type NativeInput = React.InputHTMLAttributes<HTMLInputElement>

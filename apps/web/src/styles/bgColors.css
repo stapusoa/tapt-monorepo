@@ -7,11 +7,11 @@
   .bg-subtle { background-color: var(--color-neutral-50); }
   .bg-disabled { background-color: var(--color-neutral-100); }
 
-  .bg-primary { background-color: var(--color-primary, #eead4c); }
+  .bg-primary { background-color: var(--color-primary, #E11D48); }
   .bg-primary-light { background-color: var(--color-primary-light); }
   .bg-primary-dark { background-color: var(--color-primary-dark); }
 
-  .bg-secondary { background-color: var(--color-secondary); }
+  .bg-secondary { background-color: var(--color-secondary, #525B71); }
   .bg-secondary-light { background-color: var(--color-secondary-light); }
   .bg-secondary-dark { background-color: var(--color-secondary-dark); }
 

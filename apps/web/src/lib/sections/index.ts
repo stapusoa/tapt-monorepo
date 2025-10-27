@@ -1,5 +1,5 @@
 export { HomeHero } from "@/lib/sections/HomeHero"
-export { Hero } from "@/lib/layout/Hero"
+export { Hero } from "@/lib/helpers/Hero"
 export { LogoCloud } from "@/lib/sections/LogoCloud"
 export { MarketStats } from "@/lib/sections/MarketStats"
 export { OurStorySection } from "@/lib/sections/OurStorySection"

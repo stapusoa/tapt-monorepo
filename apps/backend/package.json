@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Koya: My Lemonade Stand secure backend for managing auth, customer records, and inventory services.",
+  "description": "Tapt Designs: My portfolio secure backend for managing auth, customer records, and inventory services.",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -14,23 +14,18 @@
     "firebase:emulate": "firebase emulators:start"
   },
   "keywords": [
-    "Koya",
-    "My Lemonade Stand",
-    "koya lemonade stand utah",
-    "my lemonade stand utah",
-    "utah lemonade stand",
-    "order crafts utah",
-    "crafts entrepreneurs",
-    "crafts marketplace",
-    "crafts shop",
-    "kids crafts",
-    "children crafts",
-    "kids entrepreneurs",
-    "children entrepreneurs",
-    "kids marketplace",
-    "children marketplace"
+    "UX design Utah",
+    "UX engineer Utah",
+    "UX engineer",
+    "UI engineer",
+    "product development",
+    "product development Utah",
+    "design systems",
+    "design systems Utah",
+    "web development Utah",
+    "app development Utah"
   ],
-  "author": "Tapt Designs",
+  "author": "Sara Tapusoa",
   "license": "ISC",
   "dependencies": {
     "@google-cloud/recaptcha-enterprise": "^6.3.0",

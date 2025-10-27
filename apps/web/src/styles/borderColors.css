@@ -5,11 +5,11 @@
   .border-subtle { border-color: var(--color-neutral-300); }
   .border-disabled { border-color: var(--color-neutral-200); }
 
-  .border-primary { border-color: var(--color-primary); }
+  .border-primary { border-color: var(--color-primary, #E11D48); }
   .border-primary-light { border-color: var(--color-primary-light); }
   .border-primary-dark { border-color: var(--color-primary-dark); }
 
-  .border-secondary { border-color: var(--color-secondary); }
+  .border-secondary { border-color: var(--color-secondary, #525B71); }
   .border-secondary-light { border-color: var(--color-secondary-light); }
   .border-secondary-dark { border-color: var(--color-secondary-dark); }
 

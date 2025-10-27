@@ -42,8 +42,9 @@ export function Navigation({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   // const userButtonRef = useRef<HTMLButtonElement>(null)
 
-  const logowhite = '/logo/logo-contrast.svg'
-  const logoprimary = '/logo/logo-alt.svg'
+  // const logowhite = '/logo/logo-contrast.svg'
+  const logoprimary = '/logo/logo-primary.svg'
+  const markprimary = '/logo/logo-mark-primary.svg'
 
   // Simulated signed-in state for demonstration; replace with actual auth state
   const signedIn = true
@@ -112,7 +113,7 @@ export function Navigation({
       >
         <div
           className={cn(
-            'max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4',
+            'max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4',
             visibleLinkCount === 1 && 'justify-start'
           )}
         >
@@ -123,9 +124,9 @@ export function Navigation({
             className="flex items-center h-full transition-transform hover:scale-105"
           >
             <img
-              src={isHomePage && !scrolled ? logowhite : logoprimary}
-              alt="Koya Logo"
-              className="h-12 w-auto"
+              src={isHomePage && !scrolled ? logoprimary : markprimary}
+              alt="My Logo"
+              className="h-8"
             />
           </Link>
 
@@ -147,8 +148,8 @@ export function Navigation({
                     className={cn(
                       'px-3 py-2 font-semibold transition-colors',
                       isHomePage && !scrolled
-                        ? 'text-white hover:text-white/80'
-                        : 'text-default hover:text-secondary-light'
+                        ? 'text-secondary hover:text-primary'
+                        : 'text-default hover:text-primary'
                     )}
                   >
                     {item.text}
@@ -156,7 +157,7 @@ export function Navigation({
                       className={cn(
                         'absolute bottom-0 left-0 w-full h-[2px] origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100',
                         isActiveLink(item.page) && 'scale-x-100',
-                        isHomePage && !scrolled ? 'bg-white' : 'bg-primary'
+                        'bg-primary'
                       )}
                     />
                   </Link>
@@ -173,11 +174,11 @@ export function Navigation({
                 className={cn(
                   'hidden lg:block px-6 py-3 rounded-lg font-semibold text-[15px] uppercase transition-opacity',
                   isHomePage && !scrolled
-                    ? 'text-white hover:opacity-90'
-                    : 'text-default hover:text-secondary-light'
+                    ? 'text-primary hover:opacity-90'
+                    : 'text-default hover:text-secondary'
                 )}
               >
-                Become a Seller
+                Let's Work
               </button>
             )}
 
@@ -231,7 +232,7 @@ export function Navigation({
                         handleLinkClick(item.page)
                         setMobileMenuOpen(false)
                       }}
-                      className="block px-4 py-2 text-white hover:bg-white/10 transition"
+                      className="block px-4 py-2 text-secondary hover:bg-white/10 transition"
                     >
                       {item.text}
                     </Link>

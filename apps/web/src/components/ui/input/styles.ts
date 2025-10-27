@@ -1,23 +1,42 @@
-import { cva } from "class-variance-authority"
+import { cn } from "@/lib/utils"
 
-export const inputVariants = cva(
-  "file:text-body placeholder:text-subtle selection:bg-primary selection:text-primary-foreground dark:bg-input/30 flex w-full min-w-0 transition-[color,box-shadow] outline-none file:inline-flex file:border-0 file:bg-transparent file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive focus:ring-primary focus:ring-2 focus:ring-offset-2",
-  {
-    variants: {
-      size: {
-        sm: "h-8 px-2 py-1 text-sm file:h-6 file:text-xs rounded-md",
-        md: "h-9 px-3 py-1 text-base file:h-7 file:text-sm md:text-sm rounded-lg",
-        lg: "h-11 px-4 py-2 text-base file:h-8 file:text-sm rounded-xl",
-      },
-      variant: {
-        filled: "border-1 border-solid border-neutral-300 bg-neutral-300 hover:border-neutral-500",
-        outlined: "bg-transparent border-1 border-solid border-neutral-300 hover:border-neutral-500 shadow-none",
-        ghost: "bg-transparent border-transparent shadow-none",
-      },
-    },
-    defaultVariants: {
-      size: "md",
-      variant: "filled",
-    },
-  },
-)
+export const containerCss = (fullWidth: boolean) =>
+  cn(
+    'inline-flex flex-col data-[invalid="true"]:color-red min-w-0 min-h-0 children:min-w-0 children:min-h-0',
+    fullWidth ? 'w-full' : 'w-auto'
+  )
+
+export const labelStyle = 'flex flex-col data-[invalid="true"]:color-red'
+
+export const labelCss =
+  "type-small-text-desktop text-left color-grey-800 pl-3.5 capitalize after:[&[data-required='true']]:content-['*'] after:color-red after:pl-0.5"
+
+export const helperTextCss = (hasError: boolean) =>
+  cn(
+    'type-subtext text-left font-2.5 pl-3.5 m-0 data-[invalid="true"]:color-current-color',
+    hasError ? 'color-red' : 'color-grey-700'
+  )
+
+export const inputWrapCss = ({
+  noPaddingForSlotAfter,
+  isDisabled,
+  isInvalid,
+}: {
+  noPaddingForSlotAfter: boolean
+  isDisabled: boolean
+  isInvalid: boolean
+}) =>
+  cn(
+    'flex flex-row items-center b-1px b-solid b-grey-300 rd-2 my-0.5 p-0 pl-3.5 gap-2.5 [&:focus-within]:b-canyon',
+    {
+      'pr-0': noPaddingForSlotAfter,
+      'pr-3.5': !noPaddingForSlotAfter,
+      'bg-grey-200': isDisabled,
+      'bg-white': !isDisabled,
+      'b-current-color': isInvalid,
+    }
+  )
+
+export const inputCss =
+  'bg-transparent b-none w-0 flex-grow outline-none py-3.5 px-0 color-current-color cursor-pointer text-4 placeholder:color-grey-700 disabled:cursor-default'
+

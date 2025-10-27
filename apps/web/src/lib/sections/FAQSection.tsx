@@ -33,11 +33,11 @@ export function FAQSection() {
       <div className="flex flex-col items-center relative size-full">
         <div className="box-border content-stretch flex flex-col items-center justify-start px-2.5 py-[80px] relative w-full">
           <div className="max-w-[1140px] relative shrink-0 w-full">
-            <div className="text-center mb-16">
-              <h2 className="font-['Merriweather:Bold',_sans-serif] text-[#1a1a1a] text-[42px] font-bold mb-6">
+            <div className="text-center mb-16 typography">
+              <h2 className="title-lg text-[#1a1a1a] mb-4">
                 Frequently Asked Questions
               </h2>
-              <p className="font-['Karla:Regular',_sans-serif] text-[#606060] text-[18px] max-w-2xl mx-auto leading-relaxed">
+              <p className="body-lg text-[#606060] max-w-2xl mx-auto">
                 Get answers to common real estate questions
               </p>
             </div>
@@ -49,10 +49,10 @@ export function FAQSection() {
                   value={`item-${index}`}
                   className="border border-gray-200 rounded-xl px-6 shadow-sm hover:shadow-md transition-shadow"
                 >
-                  <AccordionTrigger className="font-['Merriweather:Bold',_sans-serif] text-[#1a1a1a] text-[18px] font-semibold text-left hover:no-underline hover:text-[#5e4684] transition-colors">
+                  <AccordionTrigger className="text-[#1a1a1a] text-left hover:no-underline hover:text-[#5e4684] transition-colors">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="font-['Karla:Regular',_sans-serif] text-[#606060] text-[16px] leading-relaxed pt-4">
+                  <AccordionContent className="text-[#606060] leading-relaxed pt-4">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

@@ -6,8 +6,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Phone, Mail, MapPin, User, Building, MessageSquare } from "lucide-react"
 import { Icon } from "@/components/ui/Icon"
+import type { PageType } from '@/components/ui/navigation/types'
 
-export function ContactPage() {
+interface ContactProps {
+  onNavigate: (page: PageType) => void;
+}
+
+export function Contact({ onNavigate }: ContactProps) {
   return (
     <div className="min-h-screen mt-50 bg-gray-50 py-14 px-4">
       <div className="max-w-4xl mx-auto flex flex-col gap-10">
@@ -189,7 +194,7 @@ export function ContactPage() {
 
             {/* Submit Button */}
             <div className="flex justify-end pt-4">
-              <Button
+            <Button onClick={() => onNavigate('home')}
                 type="submit"
                 className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-3 h-auto font-medium"
               >

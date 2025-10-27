@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import type { PageType } from "@/components/ui/navigation/types"
-import { Feature } from "@/lib/layout/Feature"
+import { Feature } from "@/lib/helpers/Feature"
 
 const images = [
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/imgAboutClient-1.webp`, alt: 'Team working with clients' },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/imgAboutClient-2.webp`, alt: 'Open house event' },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/imgAboutClient-3.webp`, alt: 'Client consultation' },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/imgAboutClient-4.webp`, alt: 'Property showing' },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/imgAboutClient-5.webp`, alt: 'Team meeting' },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/imgAboutClient-6.webp`, alt: 'Office workspace' },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/imgAboutClient-7.webp`, alt: 'Networking event' },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/imgAboutClient-8.webp`, alt: 'Client closing' },
+  { src: `${import.meta.env.VITE_API_URL}/assets/images/product-proj1.webp`, alt: 'Team working with clients' },
+  { src: `${import.meta.env.VITE_API_URL}/assets/images/product-proj2.webp`, alt: 'Open house event' },
+  { src: `${import.meta.env.VITE_API_URL}/assets/images/product-proj3.webp`, alt: 'Client consultation' },
+  { src: `${import.meta.env.VITE_API_URL}/assets/images/product-proj4.webp`, alt: 'Property showing' },
+  { src: `${import.meta.env.VITE_API_URL}/assets/images/product-proj4.webp`, alt: 'Team meeting' },
+  { src: `${import.meta.env.VITE_API_URL}/assets/images/product-proj4.webp`, alt: 'Office workspace' },
+  { src: `${import.meta.env.VITE_API_URL}/assets/images/product-proj4.webp`, alt: 'Networking event' },
+  { src: `${import.meta.env.VITE_API_URL}/assets/images/product-proj4.webp`, alt: 'Client closing' },
 ]
 
 function ModernCarousel({ children, currentSlide, totalSlides, onNext, onPrev, onSlideSelect }: {

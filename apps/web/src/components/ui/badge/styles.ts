@@ -59,8 +59,8 @@ export const badgeVariants = cva(
       { variant: "filled", color: "primary", class: "bg-badge-primary" },
       { variant: "filled", color: "secondary", class: "bg-badge-secondary" },
       { variant: "filled", color: "critical", class: "bg-badge-critical" },
-      { variant: "filled", color: "neutral", class: "bg-badge-neutral text-header" },
-      { variant: "filled", color: "default", class: "bg-badge-default" },
+      { variant: "filled", color: "neutral", class: "bg-neutral-100 text-default" },
+      { variant: "filled", color: "default", class: "bg-neutral-200 text-default" },
       { variant: "filled", color: "contrast", class: "bg-badge-contrast text-header" },
 
       // With Pointer

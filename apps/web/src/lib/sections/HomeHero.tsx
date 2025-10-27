@@ -1,38 +1,18 @@
 import type { PageType } from "@/components/ui/navigation/types"
-import { Hero } from '@/lib/layout/Hero'
+import { Hero } from '@/lib/helpers/Hero'
 import { PaperSeparator } from '@/components/ui/separator/paperSeparator'
+import { Icon } from '@/components/ui/Icon'
 
-const bgImgSM = "/bg-homeHero.webp"
-const bgImgMD = "/bg-homeHero.webp"
-const bgImgLG = "/bg-homeHero.webp"
-
-
-{/*
-const heroImages = {
-  sm: `${import.meta.env.VITE_API_URL}/assets/images/bgHomeHero-sm.webp`,
-  md: `${import.meta.env.VITE_API_URL}/assets/images/bgHomeHero-md.webp`,
-  lg: `${import.meta.env.VITE_API_URL}/assets/images/bgHomeHero-lg.webp`,
-}
-*/}
+const bgImgSM = "/bg-home-hero_sm.webp"
+const bgImgMD = "/bg-home-hero_md.webp"
+const bgImgLG = "/bg-home-hero_lg.webp"
 
 const heroImages = {
   sm: bgImgSM,
-    md: bgImgMD,
+  md: bgImgMD,
   lg: bgImgLG
 
 }
-
-{/*
-const galleryImages = [
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/img_oceanVibes.jpg`, type: "image" as const, alt: "Waxing" },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/img_oceanYoga.jpg`, type: "image" as const, alt: "Film still" },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/img_oilDrops.jpg`, type: "image" as const, alt: "Nails" },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/img_stones.jpg`, type: "image" as const, alt: "stones" },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/img_waterRipple.jpg`, type: "image" as const, alt: "Shower" },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/img_yoga.jpg`, type: "image" as const, alt: "Neck Pillow" },
-  { src: `${import.meta.env.VITE_API_URL}/assets/images/img_room.jpg`, type: "image" as const, alt: "Massage Table" },
-]
-*/}
 
 export function HomeHero({ onNavigate }: { onNavigate: (page: PageType) => void }) {
   return (
@@ -52,25 +32,34 @@ export function HomeHero({ onNavigate }: { onNavigate: (page: PageType) => void 
       }}
       content={{
         title: (
-          <>
-            Dream it.<br />
-            Make it.<br />
-            Sell it.
-          </>
+          <div className="flex flex-col z-12">
+            <span className="text-black">designing for users,</span>
+            <span className="text-primary">not just pixels.</span>
+          </div>
         ),
         subheader: (
           <>
-            Because every big dream<br />
-            starts with a small stand.
+            6+ years designing and developing user-centered solutions for inventory management, travel, real estate, healthcare, and enterprise software. Based in Utah, working with teams worldwide.
           </>
         ),
         buttons: [
           {
-            text: "Create your stand",
-            onClick: () => onNavigate("home"),
+            text: [
+              <div className="flex gap-2 items-center justify-center z-12">
+              <span>View my work</span>
+              <Icon name="arrowRight" className="w-4 h-auto" />
+              </div>
+            ],
+            onClick: () => onNavigate("work"),
+            className: "px-6 py-3 bg-black text-white rounded-lg hover:bg-blue-700"
+          },
+          {
+            text: "Let's work together",
+            onClick: () => onNavigate("contact"),
+            className: "px-6 py-3 z-12 bg-primary text-gray-800 rounded-lg hover:bg-gray-300"
           }
         ],
-        badge: "Koya Lemonade Stands"
+        badge: "UX ENGINEER"
       }}
     >
       <PaperSeparator />

@@ -11,36 +11,36 @@ export function Footer({ onNavigate }: { onNavigate: (page: PageType) => void })
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
               {/* Company Info */}
               <div className="space-y-6">
-                <div>
-                  <h3 className="font-['Merriweather'] text-[24px] font-bold mb-4">
-                    Planting Roots Realty
+                <div className="typography">
+                  <h3 className="title-sm mb-4">
+                    Tapt Designs
                   </h3>
-                  <p className="font-['Karla'] text-white/80 text-[16px] leading-relaxed">
-                    Your trusted Utah County real estate expert, helping families find their perfect home with nearly 6 years of experience.
+                  <p className="body-lg text-white/80 leading-relaxed">
+                    A digital solutions expert with over 6 years of experience.
                   </p>
                 </div>
-                <div className="space-y-2">
-                  <p className="font-['Karla'] text-white font-medium">Brittany Hutchison</p>
-                  <p className="font-['Karla'] text-white/80 text-[14px]">Licensed Real Estate Agent</p>
-                  <p className="font-['Karla'] text-white/80 text-[14px]">Utah County & Surrounding Areas</p>
+                <div className="space-y-2 typography">
+                  <p className="body-md font-semibold text-white mb-4">Sara Tapusoa</p>
+                  <p className="body-sm text-white/80">User Experience Engineer</p>
+                  <p className="body-sm text-white/80">Specializing in Design Systems</p>
                 </div>
               </div>
 
               {/* Quick Links */}
-              <div className="space-y-6">
-                <h4 className="font-['Merriweather'] text-[20px] font-bold">Quick Links</h4>
-                <div className="space-y-3">
+              <div className="space-y-4 typography">
+                <h4 className="body-lg leading-8">Quick Links</h4>
+                <div className="space-y-4 body-sm">
                   {[
                     { text: 'Home', page: 'home' as PageType },
-                    { text: 'Our Story', page: 'our-story' as PageType },
-                    { text: 'Listings', page: 'listings' as PageType },
-                    { text: 'Blog', page: 'blog' as PageType },
+                    { text: 'Work', page: 'work' as PageType },
+                    { text: 'Services', page: 'services' as PageType },
+                    { text: 'Resources', page: 'resources' as PageType },
                     { text: 'Contact', page: 'contact' as PageType }
                   ].map((link, index) => (
                     <button
                       key={index}
                       onClick={() => onNavigate(link.page)}
-                      className="block font-['Karla'] text-white/80 hover:text-white transition-colors text-[16px] text-left"
+                      className="block body-md text-white/80 hover:text-white transition-colors text-left"
                     >
                       {link.text}
                     </button>
@@ -49,18 +49,17 @@ export function Footer({ onNavigate }: { onNavigate: (page: PageType) => void })
               </div>
 
               {/* Services */}
-              <div className="space-y-6">
-                <h4 className="font-['Merriweather'] text-[20px] font-bold">Services</h4>
-                <div className="space-y-3">
+              <div className="space-y-4 typography">
+                <h4 className="body-lg leading-8">Services</h4>
+                <div className="space-y-4 body-md">
                   {[
-                    'Home Buying',
-                    'Home Selling',
-                    'Investment Properties',
-                    'Market Analysis',
-                    'First-Time Buyers',
-                    'Relocation Services'
+                    'Websites',
+                    'Apps',
+                    'Design Systems',
+                    'Automations',
+                    'Figma Plugins'
                   ].map((service, index) => (
-                    <p key={index} className="font-['Karla'] text-white/80 text-[16px]">
+                    <p key={index} className="body-md text-white/80">
                       {service}
                     </p>
                   ))}
@@ -68,32 +67,32 @@ export function Footer({ onNavigate }: { onNavigate: (page: PageType) => void })
               </div>
 
               {/* Contact Info */}
-              <div className="space-y-6">
-                <h4 className="font-['Merriweather'] text-[20px] font-bold">Get In Touch</h4>
-                <div className="space-y-4">
+              <div className="space-y-4 typography">
+                <h4 className="body-lg leading-8">Get In Touch</h4>
+                <div className="space-y-4 body-md">
                   <div className="flex items-center gap-3">
-                    <span className="text-[20px]">📱</span>
-                    <a href="tel:+18014009242" className="font-['Karla'] text-white/80 hover:text-white transition-colors">
-                      (801) 400-9242
+                    <span className="body-md">📱</span>
+                    <a href="tel:+18018577095" className="body-md text-white/80 hover:text-white transition-colors">
+                      By phone
                     </a>
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="text-[20px]">📧</span>
-                    <a href="mailto:plantingrootsrealty@gmail.com" className="font-['Karla'] text-white/80 hover:text-white transition-colors">
-                      plantingrootsrealty@gmail.com
+                    <a href="mailto:plantingrootsrealty@gmail.com" className="body-md text-white/80 hover:text-white transition-colors">
+                      sara.tapusoa@gmail.com
                     </a>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-[20px]">📍</span>
-                    <span className="font-['Karla'] text-white/80">
+                    <span className="body-md">📍</span>
+                    <span className="body-md text-white/80">
                       Utah County, UT
                     </span>
                   </div>
                 </div>
 
                 {/* Social Links */}
-                <div className="space-y-3">
-                  <h5 className="font-['Karla'] text-white font-medium">Follow Me</h5>
+                <div className="space-y-4 body-md">
+                  <h5 className="text-white">Follow Me</h5>
                   <div className="flex gap-3">
                     {['Facebook', 'Instagram', 'LinkedIn', 'YouTube'].map((platform, index) => (
                       <Button
@@ -114,14 +113,14 @@ export function Footer({ onNavigate }: { onNavigate: (page: PageType) => void })
 
             {/* Bottom Footer */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="font-['Karla'] text-white/60 text-[14px]">
-                © 2024 Planting Roots Realty. All rights reserved.
+              <div className="body-xs text-white/60 text-[14px]">
+                © 2025 Tapt Designs. All rights reserved.
               </div>
               <div className="flex gap-6">
                 {['Privacy Policy', 'Terms of Service', 'Equal Housing Opportunity'].map((label, index) => (
                   <button
                     key={index}
-                    className="font-['Karla'] text-white/60 hover:text-white/80 transition-colors text-[14px]"
+                    className="body-sm text-white/60 hover:text-white/80 transition-colors"
                   >
                     {label}
                   </button>
@@ -131,10 +130,9 @@ export function Footer({ onNavigate }: { onNavigate: (page: PageType) => void })
 
             {/* License Info */}
             <div className="mt-6 pt-6 border-t border-white/20">
-              <p className="font-['Karla'] text-white/60 text-[12px] text-center leading-relaxed">
-                Brittany Hutchison - Licensed Real Estate Agent in Utah.
+              <p className=" text-white/60 body-xs text-center leading-relaxed">
+                Sara Tapusoa - UX Design Engineer in Utah.
                 All information deemed reliable but not guaranteed.
-                Equal Housing Opportunity.
               </p>
             </div>
           </div>
