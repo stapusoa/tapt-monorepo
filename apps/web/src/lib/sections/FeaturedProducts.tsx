@@ -27,7 +27,7 @@ export function FeaturedProducts({
               Featured Products
             </h2>
             <p className="body-lg text-default">
-              Discover amazing creations from young entrepreneurs
+              Discover some products I've recently built.
             </p>
           </div>
 

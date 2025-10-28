@@ -9,6 +9,7 @@ import { Contact } from "./pages/ContactPage"
 import { SanityPage } from "@/lib/cms/components/PageLayout"
 import { Navigation } from "@/components/ui/navigation"
 import { CaseStudy } from '@/lib/helpers/CaseStudy'
+import { About } from './pages/About'
 import type { PageType } from "@/components/ui/navigation/types"
 import type { Product, ProductWithQuantity } from "@/lib/types"
 import { CartDrawer } from '@/lib/helpers/CartDrawer'
@@ -73,36 +74,43 @@ function App() {
               onNavigate={(id) => navigate(`/work/${id}`)}
             />
           }
-          />
-            <Route path="/work/:id" element=
-            {
-              <CaseStudy onNavigate={(page) => navigate(`/${page}`)} />
-            } />
-
-          <Route
+        />
+        <Route path="/work/:id" element=
+          {
+            <CaseStudy onNavigate={(page) => navigate(`/${page}`)} />
+          } />
+        <Route
+          path="/about"
+          element={
+            <About
+              onNavigate={handleNavigate}
+            />
+          }
+        />
+        <Route
           path="/services"
           element={
             <Services
               onNavigate={handleNavigate}
             />
           }
-          />
-          <Route
+        />
+        <Route
           path="/contact"
           element={
             <Contact
               onNavigate={handleNavigate}
             />
           }
-          />
-           <Route
+        />
+        <Route
           path="/resources"
           element={
             <Resources
               onNavigate={handleNavigate}
             />
           }
-          />
+        />
         <Route path="/:slug" element={<SanityPage />} />
       </Routes>
 

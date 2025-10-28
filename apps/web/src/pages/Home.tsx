@@ -12,7 +12,6 @@ import {
 import { useNavigate } from "react-router-dom"
 
 import { BookingForm } from "@/lib/sections/BookingForm"
-import { Footer } from "@/components/ui/navigation/footer"
 import { OurStorySection } from "@/lib/sections/OurStorySection"
 import { FeaturedProducts } from '@/lib/sections/FeaturedProducts'
 import { FeaturedProjects } from '@/lib/sections/FeaturedProjects'
@@ -20,24 +19,25 @@ import { FeaturedProjects } from '@/lib/sections/FeaturedProjects'
 import type { Product } from '@/lib/types' // adjust if you have a Product type
 import { QuizSection } from '@/lib/sections/QuizSection'
 import { CTASection } from '@/lib/sections/CTASection'
-import img1 from "@/assets/images/sprint-proj1_lg.webp"
+import img1 from "@/assets/images/prod1_health1.png"
+import img2 from "@/assets/images/prod2_avatars.png"
 
 const allProducts: Product[] = [
   {
     id: 1,
-    title: "Sample Oil",
-    description: "A sample product description.",
-    price: 19.99,
+    title: "Google Sheet Health Tracker",
+    description: "Trying to lose weight or get fit? Track your weight, body fat %, lean mass, and fat mass with this sheet. You can convert the data to Imperial (lbs, ft, in) or Metric (cm, kg) units automatically, auto calculate BMI and lean/fat mass, and track your goals and actual progress. More features coming soon.",
+    price: 0.99,
     image: img1,
-    category: "Oils"
+    category: "google sheet"
   },
   {
     id: 2,
-    title: "Sample Cream",
-    description: "Another product description.",
-    price: 29.99,
-    image: img1,
-    category: "Creams"
+    title: "User Persona Illustrated Avatars",
+    description: "Craft unique avatars with this diverse collection of Figma-based svg's in component sets. It includes several hair types, shirts, facial features, and more.",
+    price: 4.00,
+    image: img2,
+    category: "illustrations",
   }
 ]
 
@@ -55,7 +55,7 @@ export function Home({ onNavigate, onProductClick }: HomeProps) {
   const navigate = useNavigate()
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const internalProductClick = (_product: Product) => {
     onNavigate("product-details")
     window.scrollTo({ top: 0, behavior: "smooth" })
@@ -67,7 +67,7 @@ export function Home({ onNavigate, onProductClick }: HomeProps) {
       {process.env.NODE_ENV === 'development' && (
         <button
           onClick={() => setOverride(!override)}
-          className="fixed top-4 right-4 bg-gray-800 text-white px-3 py-1 rounded z-50"
+          className="fixed top-4 right-4 bg-neutral-800 text-white px-3 py-1 rounded z-50"
           aria-label="Toggle home layout"
         >
           {override ? 'Showing: New Home' : 'Showing: Old Home'}
@@ -79,22 +79,9 @@ export function Home({ onNavigate, onProductClick }: HomeProps) {
           <div className="box-border content-stretch flex flex-col items-center justify-start pb-0 pt-0 px-0 relative size-full">
             <HomeHero onNavigate={onNavigate} />
             <LogoCloud />
-            <OurStorySection onNavigate={onNavigate} />
-            <TestimonialsSection />
-            <ResourcesSection onNavigate={onNavigate} />
-            <BookingForm />
-            <FAQSection />
-            <Footer onNavigate={onNavigate} />
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col items-center relative size-full">
-          <div className="box-border content-stretch flex flex-col items-center justify-start pb-0 pt-0 px-0 relative size-full">
-            <HomeHero onNavigate={onNavigate} />
             <MarketStats />
-             <FeaturedProjects
-               onNavigate={onNavigate}
-        onProjects={(id) => navigate(`/work/${id}`)}
+            <FeaturedProjects
+              onNavigate={(id) => navigate(`/work/${id}`)}
             />
             <FeaturedProducts
               onNavigate={onNavigate}
@@ -103,9 +90,26 @@ export function Home({ onNavigate, onProductClick }: HomeProps) {
             />
             <CTASection onNavigate={onNavigate} />
             <QuizSection />
-                        <TestimonialsSection />
+            <OurStorySection onNavigate={onNavigate} />
+            <TestimonialsSection />
+            <ResourcesSection onNavigate={onNavigate} />
+            <BookingForm />
             <FAQSection />
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center relative size-full">
+          <div className="box-border content-stretch flex flex-col items-center justify-start pb-0 pt-0 px-0 relative size-full">
+            <HomeHero onNavigate={onNavigate} />
+            <MarketStats />
+            <FeaturedProjects
+                     onNavigate={(id) => navigate(`/work/${id}`)}
 
+            />
+            <CTASection onNavigate={onNavigate} />
+            <QuizSection />
+            <TestimonialsSection />
+            <FAQSection />
           </div>
         </div>
       )}
