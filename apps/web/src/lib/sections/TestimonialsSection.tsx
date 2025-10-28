@@ -78,7 +78,7 @@ export function TestimonialsSection() {
                 What My Clients Say
               </h2>
               <p className="body-lg text-[#606060] max-w-2xl mx-auto">
-                Real experiences from families I've helped achieve their real estate goals
+                Real experiences from clients I've helped achieve their website goals
               </p>
             </div>
 

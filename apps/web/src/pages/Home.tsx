@@ -108,7 +108,6 @@ export function Home({ onNavigate, onProductClick }: HomeProps) {
             />
             <CTASection onNavigate={onNavigate} />
             <QuizSection />
-            <TestimonialsSection />
             <FAQSection />
           </div>
         </div>
