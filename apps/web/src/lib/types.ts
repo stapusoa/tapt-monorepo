@@ -147,6 +147,8 @@ export interface CaseStudy {
   image: string;
   process: CaseStudyProcess[];
   designSystem?: CaseStudyDesignSystem;
+    designSystemLink: string;
+  prototype: string;
 }
 
 // ✅ React component props (separate)

@@ -22,7 +22,7 @@ interface ServicesPageProps {
 }
 
 export function Services({ onNavigate }: ServicesPageProps) {
- // const [selectedTier, setSelectedTier] = useState('essential');
+  // const [selectedTier, setSelectedTier] = useState('essential');
   const [selectedProjectType, setSelectedProjectType] = useState('all')
   const [showBooking, setShowBooking] = useState(false)
   const [showQuote, setShowQuote] = useState(false)
@@ -33,18 +33,20 @@ export function Services({ onNavigate }: ServicesPageProps) {
     {
       id: 'essential',
       name: 'Essential',
-      tagline: 'Perfect for startups and small projects',
+      tagline: 'Perfect for startups & small projects',
       price: '$2,500',
       billing: 'Flat rate per project',
-      description: 'Complete UX design for smaller projects with essential deliverables.',
+      description: 'Design and develop a professional, user-friendly product from concept to launch.',
       features: [
-        'User research & personas',
+        'Discovery session & project brief',
+        'User research & persona creation',
         'Wireframes & user flows',
-        'High-fidelity designs',
+        'High-fidelity UI design',
         'Basic prototype',
+        'Responsive front-end development',
+        'Basic SEO & back-end development setup',
         '2 rounds of revisions',
-        'Design handoff documentation',
-        '4-6 week delivery'
+        '6-8 week delivery',
       ],
       ideal: ['Landing pages', 'Simple mobile apps', 'MVP designs', 'Small websites'],
       cta: 'Start Essential Project'
@@ -52,19 +54,21 @@ export function Services({ onNavigate }: ServicesPageProps) {
     {
       id: 'professional',
       name: 'Professional',
-      tagline: 'For growing companies with complex needs',
-      price: '$150',
+      tagline: 'For companies with complex needs',
+      price: '$75',
       billing: 'Per hour',
-      description: 'Comprehensive UX design with advanced research and testing.',
+      description: 'Full product design and development support with deeper research, prototyping, and testing.',
       features: [
-        'In-depth user research',
+        'Advanced UX research & analysis',
         'Competitive analysis',
         'Information architecture',
         'Advanced prototyping',
         'Usability testing',
-        'Design system components',
+        'Design system documentation',
+        'Full component libraries',
         'Unlimited revisions',
-        'Weekly progress calls'
+        'CMS integration (Sanity, WordPress, etc.)',
+        'Ongoing QA & refinement',
       ],
       ideal: ['E-commerce platforms', 'SaaS applications', 'Enterprise software', 'Complex web apps'],
       cta: 'Book Professional Hours',
@@ -73,19 +77,19 @@ export function Services({ onNavigate }: ServicesPageProps) {
     {
       id: 'partnership',
       name: 'Partnership',
-      tagline: 'Long-term collaboration for ambitious products',
-      price: '$8,000',
+      tagline: 'Long-term collaboration for big products',
+      price: '$800',
       billing: 'Per month',
-      description: 'Dedicated design partnership with ongoing support and strategy.',
+      description: 'A dedicated design & development partner offering strategy, updates, and ongoing support.',
       features: [
-        'Dedicated design partner',
-        'Strategic design consultation',
-        'Complete design system',
-        'Continuous user testing',
-        'Team design training',
-        'Priority support',
-        'Monthly strategy sessions',
-        'Slack/Teams integration'
+        'Priority monthly design & development hours',
+        'Dedicated Slack/Teams communication',
+        'Design system maintenance & expansion',
+        'Continuous UX testing & optimization',
+        'Landing page or feature launches',
+        'Collaboration with marketing or dev teams',
+        'Monthly strategy & performance reviews',
+        'Custom analytics reports (optional)',
       ],
       ideal: ['Growing startups', 'Product teams', 'Multiple projects', 'Design system needs'],
       cta: 'Start Partnership'
@@ -111,46 +115,47 @@ export function Services({ onNavigate }: ServicesPageProps) {
         <DialogHeader>
           <DialogTitle>Book a Discovery Call</DialogTitle>
         </DialogHeader>
-        <div className="space-y-6">
-          <div>
-            <Label>Select Date</Label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="outlined" className="w-full justify-start text-left">
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {selectedDate ? format(selectedDate, 'PPP') : 'Pick a date'}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={setSelectedDate}
-                  disabled={(date) => date < new Date()}
-                  initialFocus
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
-          
-          <div>
-            <Label>Select Time</Label>
-            <Select value={selectedTime} onValueChange={setSelectedTime}>
-              <SelectTrigger>
-                <SelectValue placeholder="Choose time slot" />
-              </SelectTrigger>
-              <SelectContent>
-                {timeSlots.map((time) => (
-                  <SelectItem key={time} value={time}>{time}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="space-y-6 flex flex-col">
+          <div className="space-x-4 flex">
+            <div className="w-1/2">
+              <Label>Select Date</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outlined" className="w-full justify-start text-left">
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {selectedDate ? format(selectedDate, 'PPP') : 'Pick a date'}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={setSelectedDate}
+                    disabled={(date) => date < new Date()}
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
 
+            <div className="w-1/2">
+              <Label>Select Time</Label>
+              <Select value={selectedTime} onValueChange={setSelectedTime}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choose time slot" />
+                </SelectTrigger>
+                <SelectContent>
+                  {timeSlots.map((time) => (
+                    <SelectItem key={time} value={time}>{time}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
           <div className="space-y-3">
             <div>
               <Label htmlFor="name">Your Name</Label>
-              <Input id="name" placeholder="Full name" />
+              <Input id="name" type="name" placeholder="Full name" />
             </div>
             <div>
               <Label htmlFor="email">Email</Label>
@@ -191,7 +196,7 @@ export function Services({ onNavigate }: ServicesPageProps) {
               <Input id="quote-email" type="email" placeholder="your@email.com" />
             </div>
           </div>
-          
+
           <div>
             <Label htmlFor="quote-company">Company</Label>
             <Input id="quote-company" placeholder="Company name" />
@@ -246,10 +251,10 @@ export function Services({ onNavigate }: ServicesPageProps) {
 
           <div>
             <Label htmlFor="quote-details">Project Details</Label>
-            <Textarea 
-              id="quote-details" 
-              placeholder="Describe your project, goals, and any specific requirements..." 
-              rows={4} 
+            <Textarea
+              id="quote-details"
+              placeholder="Describe your project, goals, and any specific requirements..."
+              rows={4}
             />
           </div>
 
@@ -266,16 +271,16 @@ export function Services({ onNavigate }: ServicesPageProps) {
       {/* Hero Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.h1 
+          <motion.h1
             className="text-display mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             Design Services &<br />
-            <span className="text-brand-red">Pricing</span>
+            <span className="text-primary">Pricing</span>
           </motion.h1>
-          <motion.p 
+          <motion.p
             className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -283,22 +288,22 @@ export function Services({ onNavigate }: ServicesPageProps) {
           >
             Transparent pricing for every project size. From quick fixes to long-term partnerships.
           </motion.p>
-          
-          <motion.div 
+
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="btn-primary"
               onClick={() => setShowBooking(true)}
             >
               Book Discovery Call
             </Button>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               variant="outlined"
               onClick={() => setShowQuote(true)}
             >
@@ -326,13 +331,13 @@ export function Services({ onNavigate }: ServicesPageProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className={`p-8 h-full relative ${tier.popular ? 'border-brand-red border-2' : ''}`}>
+                <Card className={`p-8 h-full relative ${tier.popular ? 'border-primary border-2' : ''}`}>
                   {tier.popular && (
-                    <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-brand-red text-white">
+                    <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-white">
                       Most Popular
                     </Badge>
                   )}
-                  
+
                   <div className="text-center mb-6">
                     <h3 className="mb-2">{tier.name}</h3>
                     <p className="text-muted-foreground mb-4">{tier.tagline}</p>
@@ -364,8 +369,8 @@ export function Services({ onNavigate }: ServicesPageProps) {
                     </div>
                   </div>
 
-                  <Button 
-                    className={`w-full ${tier.popular ? 'btn-brand' : 'btn-primary'}`}
+                  <Button
+                    className={`w-full mt-auto ${tier.popular ? 'btn-brand' : 'btn-primary'}`}
                     onClick={() => tier.id === 'professional' ? setShowBooking(true) : setShowQuote(true)}
                   >
                     {tier.cta}
@@ -401,8 +406,8 @@ export function Services({ onNavigate }: ServicesPageProps) {
           </div>
 
           <div className="text-center">
-            <Button 
-              variant="outlined" 
+            <Button
+              variant="outlined"
               onClick={() => onNavigate('work')}
               className="inline-flex items-center"
             >
@@ -477,15 +482,15 @@ export function Services({ onNavigate }: ServicesPageProps) {
             Let's discuss your needs and find the perfect approach for your project.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="btn-brand"
               onClick={() => setShowBooking(true)}
             >
               Book Discovery Call
             </Button>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               variant="outlined"
               onClick={() => setShowQuote(true)}
             >

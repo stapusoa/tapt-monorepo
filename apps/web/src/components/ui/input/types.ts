@@ -1,21 +1,24 @@
-import type * as React from "react"
+import type { InputVariant, InputColor, InputSize } from "./constants"
+import type { ReactNode, ChangeEvent, InputHTMLAttributes } from "react"
 
-export interface InputProps extends NativeInput {
-  errorText?: string
-  fullWidth?: boolean
-  isInvalid?: boolean
-  isDisabled?: boolean
-  focusOnInput?: boolean
-  label?: string
-  helperText?: string
-  slotBefore?: React.ReactElement
-  slotAfter?: React.ReactElement
-  onClear?: (e: React.MouseEvent | React.KeyboardEvent) => void
-  onChange?:
-    | React.ChangeEventHandler<HTMLInputElement>
-    | React.FormEventHandler<HTMLInputElement>
-  /** Useful for accessing the outer container element rather than the input itself */
-  containerRef?: React.Ref<HTMLDivElement>
+export interface InputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "color" | "onChange"> {
+  id?: string;
+  label?: string;
+  helperText?: string;
+  errorText?: string;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
+  showClear?: boolean;
+  fullWidth?: boolean;
+  isDisabled?: boolean;
+  isInvalid?: boolean;
+  hasHelper?: boolean;
+  variant?: InputVariant;
+  color?: InputColor;
+  inputSize?: InputSize;
+  value?: string;
+  defaultValue?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClear?: () => void;
 }
-
-export type NativeInput = React.InputHTMLAttributes<HTMLInputElement>

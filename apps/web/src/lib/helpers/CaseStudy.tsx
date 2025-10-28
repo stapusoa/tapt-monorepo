@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import { caseStudies } from '@/lib/data/caseStudies'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -6,12 +7,10 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Card } from '@/components/ui/card/card-shad'
 import { ArrowLeft, ExternalLink, Target, Lightbulb, TrendingUp, Palette, Code, Copy, Check } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
-import { useState } from 'react'
 import { Icon } from '@/components/ui/Icon'
 // import { Image } from '@/components/ui/image';
 import type { CaseStudyProps } from '@/lib/types'
 import { PhaseCard } from './cards/ExpandCard'
-const designSystem = "https://ocean-brain-28461597.figma.site"
 
 export function CaseStudy({ onNavigate }: CaseStudyProps) {
   const { id } = useParams<{ id: string }>()
@@ -20,8 +19,6 @@ export function CaseStudy({ onNavigate }: CaseStudyProps) {
 
   if (!project) return <p>Project not found</p>
 
-  const [selectedProject, setSelectedProject] = useState<string | null>(null)
-
   const [copiedCode, setCopiedCode] = useState<string | null>(null)
 
   const copyToClipboard = (code: string, id: string) => {
@@ -29,6 +26,19 @@ export function CaseStudy({ onNavigate }: CaseStudyProps) {
     setCopiedCode(id)
     setTimeout(() => setCopiedCode(null), 2000)
   }
+
+  const handleNextProject = () => {
+    const currentIndex = caseStudies.findIndex((p) => p.id === project.id)
+    const nextProject = caseStudies[(currentIndex + 1) % caseStudies.length]
+    navigate(`/work/${nextProject.id}`)
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const handleBackToProjects = () => {
+    navigate("/work")
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
 
   const renderDesignSystemTab = (project: typeof caseStudies[0]) => {
     if (!project.designSystem) return null
@@ -42,7 +52,7 @@ export function CaseStudy({ onNavigate }: CaseStudyProps) {
             <p className="text-muted-foreground mb-8">
               Core design decisions codified as reusable tokens for consistency across the product.
             </p>
-            <Button variant="ghost" color="primary" className="pb-4" onClick={() => window.open(designSystem, "_blank")}
+            <Button variant="ghost" color="primary" className="pb-4" onClick={() => window.open(project.designSystemLink, "_blank")}
             >
               <span>View Full Design System</span><Icon name="arrowRight" /></Button>
 
@@ -274,146 +284,6 @@ export function CaseStudy({ onNavigate }: CaseStudyProps) {
     )
   }
 
-  if (selectedProject) {
-    const project = caseStudies.find(p => p.id === selectedProject)
-    if (!project) return null
-
-    return (
-      <div className="relative w-full h-screen">
-        <img alt={project.title} src={project.image} className="fixed inset-0 w-full h-full object-cover object-top-right hidden lg:block z-0"></img>
-        <div className="relative isolate pt-20 h-screen">
-          <div className="left mx-auto max-w-300 px-6 sm:px-6 md:px-14 lg:px-32 py-28 sm:py-36 lg:pt-58 lg:pb-20">
-            <div className="text-left">
-              {/* Back Button */}
-              <Button
-                variant="ghost"
-                onClick={() => navigate(-1)}
-                className="mb-8 p-0 h-auto"
-              >
-                <ArrowLeft className="mr-2" size={16} />
-                Back to Projects
-              </Button>
-
-              {/* Project Header */}
-              <div className="mb-12 typography">
-                <Badge variant="filled" color="neutral" className="mb-4">{project.category}</Badge>
-                <h1 className="title-sm text-primary font-regular lowercase mb-4">{project.title}</h1>
-                <h2 className="title-lg text-black font-bold lowercase mb-8">{project.subtitle}</h2>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="relative w-full z-20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div>
-              <h4 className="mb-2">Duration</h4>
-              <p className="text-muted-foreground">{project.duration}</p>
-            </div>
-            <div>
-              <h4 className="mb-2">Team</h4>
-              <p className="text-muted-foreground">{project.team}</p>
-            </div>
-            <div>
-              <h4 className="mb-2">My Role</h4>
-              <p className="text-muted-foreground">{project.role}</p>
-            </div>
-          </div>
-
-          {/* Project Content */}
-          <Tabs defaultValue="overview" className="mb-12">
-            <TabsList className={`grid w-full ${project.designSystem ? 'grid-cols-4' : 'grid-cols-3'}`}>
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="process">Process</TabsTrigger>
-              <TabsTrigger value="impact">Impact</TabsTrigger>
-              {project.designSystem && (
-                <TabsTrigger value="design-system">Design System</TabsTrigger>
-              )}
-            </TabsList>
-
-            <TabsContent value="overview" className="space-y-8 mt-8">
-              <div>
-                <h3 className="mb-4 flex items-center">
-                  <Target className="mr-2" size={20} />
-                  The Challenge
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {project.challenge}
-                </p>
-              </div>
-
-              <div>
-                <h3 className="mb-4 flex items-center">
-                  <Lightbulb className="mr-2" size={20} />
-                  The Solution
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {project.solution}
-                </p>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="process" className="mt-8">
-              <div className="space-y-8">
-                {project.process.map((phase, index) => (
-                  <Card key={index} className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                        {index + 1}
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="mb-2">{phase.phase}</h4>
-                        <p className="text-muted-foreground mb-4">{phase.description}</p>
-                        <div>
-                          <strong className="text-sm">Key Deliverables:</strong>
-                          <ul className="list-disc list-inside text-sm text-muted-foreground mt-1">
-                            {phase.deliverables.map((deliverable, i) => (
-                              <li key={i}>{deliverable}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="impact" className="mt-8">
-              <div>
-                <h3 className="mb-6 flex items-center">
-                  <TrendingUp className="mr-2" size={20} />
-                  Key Results
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {project.impact.map((result, index) => (
-                    <Card key={index} className="p-4">
-                      <p className="text-center">{result}</p>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </TabsContent>
-
-            {/* Design System Tab */}
-            {project.designSystem && renderDesignSystemTab(project)}
-          </Tabs>
-
-          {/* Navigation */}
-          <div className="flex justify-between pt-8 border-t">
-            <Button variant="outlined" onClick={() => setSelectedProject(null)}>
-              <ArrowLeft className="mr-2" size={16} />
-              All Projects
-            </Button>
-            <Button onClick={() => onNavigate('contact')}>
-              Let's Discuss This Project
-              <ExternalLink className="ml-2" size={16} />
-            </Button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
 
   return (
     <div className="relative w-full h-screen">
@@ -424,7 +294,7 @@ export function CaseStudy({ onNavigate }: CaseStudyProps) {
             {/* Back Button */}
             <Button
               variant="ghost"
-              onClick={() => navigate(-1)}
+              onClick={handleBackToProjects}
               className="mb-8 p-0 h-auto"
             >
               <ArrowLeft className="mr-2" size={16} />
@@ -437,10 +307,10 @@ export function CaseStudy({ onNavigate }: CaseStudyProps) {
               <h1 className="title-md text-primary font-thin lowercase">{project.title}</h1>
               <h2 className="title-2xl text-blueberry-900 font-bold lowercase mb-8">{project.subtitle}</h2>
               <div className="flex items-left justify-left gap-x-4">
-                <Button className="" variant="filled" color="secondary" size="lg" onClick={() => setSelectedProject(project.id)}>
+                <Button className="" variant="filled" color="secondary" size="lg" onClick={() => window.open(project.prototype, "_blank")}>
                   View prototype
                 </Button>
-                <Button className="" variant="outlined" color="secondary" size="lg" onClick={() => setSelectedProject(project.id)}>
+                <Button className="" variant="outlined" color="secondary" size="lg" onClick={handleNextProject}>
                   Next case study
                 </Button>
               </div>
@@ -566,7 +436,8 @@ export function CaseStudy({ onNavigate }: CaseStudyProps) {
 
           {/* Navigation */}
           <div className="flex justify-between pt-8 border-t">
-            <Button variant="outlined" onClick={() => navigate(-1)}
+            <Button variant="outlined"               onClick={handleBackToProjects}
+
             >
               <ArrowLeft className="mr-2" size={16} />
               All Projects
@@ -581,3 +452,5 @@ export function CaseStudy({ onNavigate }: CaseStudyProps) {
     </div>
   )
 }
+
+
