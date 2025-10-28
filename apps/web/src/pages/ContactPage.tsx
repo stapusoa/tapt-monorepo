@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card/card-shad"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import axios from "axios"
-import {useState} from "react"
+import { useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Linkedin, Phone, Mail, MapPin, User, Building, MessageSquare } from "lucide-react"
@@ -41,6 +41,8 @@ export function Contact({ onNavigate }: ContactProps) {
       await axios.post(`${import.meta.env.VITE_API_URL}/contact`, form)
       setSuccess("Form submitted successfully!")
       setForm({ name: "", email: "", inquiryPurpose: "", role: "", phone: "", organization: "", message: "" })
+          onNavigate('home')
+
     } catch (err) {
       console.error(err)
       setError("Failed to submit the form. Please try again.")
@@ -94,8 +96,8 @@ export function Contact({ onNavigate }: ContactProps) {
           </h2>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
-             {success && <p className="text-teal-600">{success}</p>}
-        {error && <p className="text-cherry-400">{error}</p>}
+            {success && <p className="text-teal-600">{success}</p>}
+            {error && <p className="text-cherry-400">{error}</p>}
 
             {/* First Row - Dropdowns */}
             <div className="grid md:grid-cols-2 gap-6">
@@ -104,8 +106,8 @@ export function Contact({ onNavigate }: ContactProps) {
                   Inquiry Purpose*
                 </Label>
                 <Select
-                value={form.inquiryPurpose}
-  onValueChange={(val) => setForm({ ...form, inquiryPurpose: val })}>
+                  value={form.inquiryPurpose}
+                  onValueChange={(val) => setForm({ ...form, inquiryPurpose: val })}>
                   <SelectTrigger className="w-full h-12 bg-neutral-50 border-0">
                     <div className="flex items-center gap-2">
                       <MessageSquare className="w-4 h-4 text-neutral-400" />
@@ -126,8 +128,8 @@ export function Contact({ onNavigate }: ContactProps) {
                   Description that fits you*
                 </Label>
                 <Select
-                value={form.role}
-  onValueChange={(val) => setForm({ ...form, role: val })}>
+                  value={form.role}
+                  onValueChange={(val) => setForm({ ...form, role: val })}>
                   <SelectTrigger className="w-full h-12 bg-neutral-50 border-0">
                     <div className="flex items-center gap-2">
                       <User className="w-4 h-4 text-neutral-400" />
@@ -138,7 +140,7 @@ export function Contact({ onNavigate }: ContactProps) {
                     <SelectItem value="individual">Individual</SelectItem>
                     <SelectItem value="small-business">Small Business</SelectItem>
                     <SelectItem value="enterprise">Enterprise</SelectItem>
-                                        <SelectItem value="recruiter">Recruiter</SelectItem>
+                    <SelectItem value="recruiter">Recruiter</SelectItem>
                     <SelectItem value="developer">Developer</SelectItem>
                   </SelectContent>
                 </Select>
@@ -148,17 +150,17 @@ export function Contact({ onNavigate }: ContactProps) {
             {/* Second Row - Name and Email */}
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="full-name" className="text-sm font-medium text-neutral-700">
+                <Label htmlFor="name" className="text-sm font-medium text-neutral-700">
                   Full Name
                 </Label>
                 <div className="relative flex items-center">
                   <Input
-                    id="full-name"
+                    id="name"
                     placeholder="Enter your full name..."
                     className="py-1 border-0"
                     variant="filled"
                     color="neutral"
-                                  value={form.name}
+                    value={form.name}
 
                     onChange={handleChange}
                     startIcon={<User size={16} />}
@@ -179,9 +181,9 @@ export function Contact({ onNavigate }: ContactProps) {
                     className="py-1 border-0"
                     variant="filled"
                     color="neutral"
-                                  value={form.email}
+                    value={form.email}
 
-                                        onChange={handleChange}
+                    onChange={handleChange}
                     startIcon={<Mail size={16} />}
                     fullWidth />
                 </div>
@@ -201,8 +203,8 @@ export function Contact({ onNavigate }: ContactProps) {
                     className="py-1 border-0"
                     variant="filled"
                     color="neutral"
-                                  value={form.organization}
-                                        onChange={handleChange}
+                    value={form.organization}
+                    onChange={handleChange}
                     startIcon={<Building size={16} />}
                     fullWidth />
                 </div>
@@ -220,8 +222,8 @@ export function Contact({ onNavigate }: ContactProps) {
                     className="py-1 border-0 w-full"
                     variant="filled"
                     color="neutral"
-                                  value={form.phone}
-              onChange={handleChange}
+                    value={form.phone}
+                    onChange={handleChange}
 
                     startIcon={<Phone size={16} />}
                     fullWidth />
@@ -237,8 +239,8 @@ export function Contact({ onNavigate }: ContactProps) {
               <div className="relative">
                 <Textarea
                   id="message"
-                   value={form.message}
-            onChange={handleChange}
+                  value={form.message}
+                  onChange={handleChange}
                   placeholder="Enter your message here..."
                   className="pt-3 min-h-32 bg-neutral-50 border-0 resize-none"
                 />
@@ -247,12 +249,12 @@ export function Contact({ onNavigate }: ContactProps) {
 
             {/* Submit Button */}
             <div className="flex justify-end pt-4">
-              <Button onClick={() => onNavigate('home')}
+              <Button
                 type="submit"
-                 disabled={submitting}
+                disabled={submitting}
                 className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-3 h-auto font-medium"
               >
-                          {submitting ? "Submitting..." : "Submit Form →"}
+                {submitting ? "Submitting..." : "Submit Form →"}
               </Button>
             </div>
           </form>
