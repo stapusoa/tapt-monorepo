@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import axios from "axios"
+
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card/card-shad'
@@ -22,12 +24,20 @@ interface ServicesPageProps {
 }
 
 export function Services({ onNavigate }: ServicesPageProps) {
-  // const [selectedTier, setSelectedTier] = useState('essential');
-  const [selectedProjectType, setSelectedProjectType] = useState('all')
-  const [showBooking, setShowBooking] = useState(false)
-  const [showQuote, setShowQuote] = useState(false)
+  
+  const [bookingForm, setBookingForm] = useState({
+    name: '', email: '', phone: '', company: '', message: ''
+  })
+  const [quoteForm, setQuoteForm] = useState({
+    name: '', email: '', company: '', project: '', budget: '', timeline: '', details: ''
+  })
   const [selectedDate, setSelectedDate] = useState<Date>()
   const [selectedTime, setSelectedTime] = useState('')
+  const [showBooking, setShowBooking] = useState(false)
+  const [showQuote, setShowQuote] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [success, setSuccess] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const pricingTiers = [
     {
@@ -109,6 +119,61 @@ export function Services({ onNavigate }: ServicesPageProps) {
     '9:00 AM', '10:00 AM', '11:00 AM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'
   ]
 
+  const handleBookingChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setBookingForm({ ...bookingForm, [e.target.id]: e.target.value })
+  }
+
+  const handleQuoteChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setQuoteForm({ ...quoteForm, [e.target.id]: e.target.value })
+  }
+
+  const submitBooking = async () => {
+    if (!selectedDate || !selectedTime) return
+    setSubmitting(true)
+    setSuccess(null)
+    setError(null)
+
+    try {
+      // get reCAPTCHA token
+      const recaptchaToken = await window.grecaptcha.enterprise.execute('<SITE_KEY>', { action: 'call_form' })
+
+      const payload = { ...bookingForm, date: selectedDate, time: selectedTime, recaptchaToken }
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/call`, payload)
+    setSuccess(`Booking submitted successfully! Reference ID: ${res.data.id}`)
+      setBookingForm({ name: '', email: '', phone: '', company: '', message: '' })
+      setSelectedDate(undefined)
+      setSelectedTime('')
+      setShowBooking(false)
+    } catch (err) {
+      console.error(err)
+      setError('Failed to submit booking. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  const submitQuote = async () => {
+    setSubmitting(true)
+    setSuccess(null)
+    setError(null)
+
+    try {
+      const recaptchaToken = await window.grecaptcha.enterprise.execute('<SITE_KEY>', { action: 'quote_form' })
+
+      const payload = { ...quoteForm, recaptchaToken }
+      await axios.post(`${import.meta.env.VITE_API_URL}/quote`, payload)
+      setSuccess('Quote request submitted successfully!')
+      setQuoteForm({ name: '', email: '', company: '', project: '', budget: '', timeline: '', details: '' })
+      setShowQuote(false)
+    } catch (err) {
+      console.error(err)
+      setError('Failed to submit quote. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+
   const BookingDialog = () => (
     <Dialog open={showBooking} onOpenChange={setShowBooking}>
       <DialogContent className="max-w-md">
@@ -155,25 +220,31 @@ export function Services({ onNavigate }: ServicesPageProps) {
           <div className="space-y-3">
             <div>
               <Label htmlFor="name">Your Name</Label>
-              <Input id="name" type="name" placeholder="Full name" />
+                        <Input id="name" type="name" placeholder="Full Name" value={bookingForm.name} onChange={handleBookingChange} />
+
             </div>
             <div>
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="your@email.com" />
+                      <Input id="email" type="email" placeholder="Email" value={bookingForm.email} onChange={handleBookingChange} />
+
             </div>
             <div>
               <Label htmlFor="company">Company</Label>
-              <Input id="company" placeholder="Company name" />
+                        <Input id="company" placeholder="Company" value={bookingForm.company} onChange={handleBookingChange} />
+
             </div>
             <div>
               <Label htmlFor="project">Project Brief</Label>
-              <Textarea id="project" placeholder="Tell me about your project..." rows={3} />
+                        <Textarea id="message" placeholder="Tell me about your project..." value={bookingForm.message} onChange={handleBookingChange} rows={3} />
+
             </div>
           </div>
 
-          <Button className="w-full btn-primary" disabled={!selectedDate || !selectedTime}>
-            Book Call
+           <Button className="w-full btn-primary" onClick={submitBooking} disabled={submitting || !selectedDate || !selectedTime}>
+            {submitting ? 'Submitting...' : 'Book Call'}
           </Button>
+           {success && <p className="text-green-600">{success}</p>}
+          {error && <p className="text-red-600">{error}</p>}
         </div>
       </DialogContent>
     </Dialog>
@@ -189,22 +260,24 @@ export function Services({ onNavigate }: ServicesPageProps) {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="quote-name">Name</Label>
-              <Input id="quote-name" placeholder="Your name" />
+                        <Input id="name" placeholder="Full Name" value={quoteForm.name} onChange={handleQuoteChange} />
+
             </div>
             <div>
               <Label htmlFor="quote-email">Email</Label>
-              <Input id="quote-email" type="email" placeholder="your@email.com" />
+                        <Input id="email" type="email" placeholder="Email" value={quoteForm.email} onChange={handleQuoteChange} />
+
             </div>
           </div>
 
           <div>
             <Label htmlFor="quote-company">Company</Label>
-            <Input id="quote-company" placeholder="Company name" />
+          <Input id="company" placeholder="Company" value={quoteForm.company} onChange={handleQuoteChange} />
           </div>
 
           <div>
             <Label htmlFor="quote-type">Project Type</Label>
-            <Select>
+            <Select value={quoteForm.project} onValueChange={(v) => setQuoteForm({ ...quoteForm, project: v })}>
               <SelectTrigger>
                 <SelectValue placeholder="Select project type" />
               </SelectTrigger>
@@ -221,7 +294,7 @@ export function Services({ onNavigate }: ServicesPageProps) {
 
           <div>
             <Label htmlFor="quote-timeline">Timeline</Label>
-            <Select>
+          <Select value={quoteForm.timeline} onValueChange={(v) => setQuoteForm({ ...quoteForm, timeline: v })}>
               <SelectTrigger>
                 <SelectValue placeholder="Project timeline" />
               </SelectTrigger>
@@ -252,16 +325,21 @@ export function Services({ onNavigate }: ServicesPageProps) {
           <div>
             <Label htmlFor="quote-details">Project Details</Label>
             <Textarea
-              id="quote-details"
+              id="details"
               placeholder="Describe your project, goals, and any specific requirements..."
+              value={quoteForm.details} onChange={handleQuoteChange}
               rows={4}
             />
+
           </div>
 
-          <Button className="w-full btn-brand">
-            Request Quote
-          </Button>
-        </div>
+         <Button className="w-full btn-brand" onClick={submitQuote} disabled={submitting}>
+          {submitting ? 'Submitting...' : 'Request Quote'}
+        </Button>
+
+        {success && <p className="text-green-600">{success}</p>}
+        {error && <p className="text-red-600">{error}</p>}
+      </div>
       </DialogContent>
     </Dialog>
   )
@@ -395,13 +473,13 @@ export function Services({ onNavigate }: ServicesPageProps) {
           <div className="flex flex-wrap justify-center gap-3 mb-12">
             {projectTypes.map((type) => (
               <Button
-                key={type.id}
-                variant={selectedProjectType === type.id ? 'filled' : 'outlined'}
-                onClick={() => setSelectedProjectType(type.id)}
-                className="rounded-full"
-              >
-                {type.name} ({type.count})
-              </Button>
+  key={type.id}
+  variant={quoteForm.project === type.id ? 'filled' : 'outlined'}
+  onClick={() => setQuoteForm({ ...quoteForm, project: type.id })}
+  className="rounded-full"
+>
+  {type.name} ({type.count})
+</Button>
             ))}
           </div>
 

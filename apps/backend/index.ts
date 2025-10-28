@@ -67,8 +67,66 @@ app.post("/contact", async (req: Request, res: Response) => {
   res.json({ message: "Success", id: docRef.id })
 })
 
+app.post("/quote", async (req: Request, res: Response) => {
+  const { name, email, budget, project, timeline, message, company, recaptchaToken } = req.body
 
+  if (!recaptchaToken) {
+    return res.status(400).json({ message: "Missing reCAPTCHA token" })
+  }
 
+  const result = await verifyRecaptcha(recaptchaToken, "quote_form")
+  if (!result.valid) {
+    return res.status(400).json({
+      message: "Failed reCAPTCHA verification",
+      reason: result.reason,
+      score: result.score,
+    })
+  }
+
+  // Save to Firestore
+  const docRef = await db.collection("quote").add({
+    name,
+    email,
+    company,
+    budget,
+    project,
+    message,
+    timeline,
+    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+  })
+
+  res.json({ message: "Success", id: docRef.id })
+})
+
+app.post("/call", async (req: Request, res: Response) => {
+  const { name, email, date, time, message, company, recaptchaToken } = req.body
+
+  if (!recaptchaToken) {
+    return res.status(400).json({ message: "Missing reCAPTCHA token" })
+  }
+
+  const result = await verifyRecaptcha(recaptchaToken, "call_form")
+  if (!result.valid) {
+    return res.status(400).json({
+      message: "Failed reCAPTCHA verification",
+      reason: result.reason,
+      score: result.score,
+    })
+  }
+
+  // Save to Firestore
+  const docRef = await db.collection("quote").add({
+    name,
+    email,
+    company,
+    message,
+    date,
+    time,
+    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+  })
+
+  res.json({ message: "Success", id: docRef.id })
+})
 // Start server
 const PORT = process.env.BACKEND_PORT || 3000
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`))
