@@ -252,7 +252,7 @@ export function Contact({ onNavigate }: ContactProps) {
               <Button
                 type="submit"
                 disabled={submitting}
-                className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-3 h-auto font-medium"
+                className="bg-primary hover:bg-primary-dark text-white px-8 py-3 h-auto font-medium"
               >
                 {submitting ? "Submitting..." : "Submit Form →"}
               </Button>
