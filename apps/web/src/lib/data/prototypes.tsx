@@ -2,7 +2,7 @@ import type { PrototypeViewerProps } from "@/pages/Prototype"
 
 export const prototype: PrototypeViewerProps[] = [
   {
-    src: "https://embed.figma.com/proto/i2Mm2TP7Zf41jhRNazAuF5/Figma-FishbowlGO-Design---iPad?page-id=1215%3A276282&node-id=1302-361010&viewport=62%2C4832%2C0.07&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1302%3A361007&embed-host=share",
+    src: "https://embed.figma.com/proto/i2Mm2TP7Zf41jhRNazAuF5/Figma-FishbowlGO-Design---iPad?page-id=1215%3A276282&node-id=1306-384834&viewport=62%2C4832%2C0.07&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1306%3A384834&embed-host=share" ,
     width: 800,
     height: 450,
     title: "fishbowl"
@@ -20,4 +20,3 @@ export const prototype: PrototypeViewerProps[] = [
     title: "tpg-storybook"
   },
 ]
-
