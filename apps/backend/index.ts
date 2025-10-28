@@ -37,7 +37,7 @@ const recaptchaClient = new RecaptchaEnterpriseServiceClient()
 
 // Contact route
 app.post("/contact", async (req: Request, res: Response) => {
-  const { name, email, phone, message, recaptchaToken } = req.body
+  const { name, email, phone, message, company, inquiry, role, recaptchaToken } = req.body
 
   if (!recaptchaToken) {
     return res.status(400).json({ message: "Missing reCAPTCHA token" })
@@ -53,16 +53,21 @@ app.post("/contact", async (req: Request, res: Response) => {
   }
 
   // Save to Firestore
-  const docRef = await db.collection("appointments").add({
+  const docRef = await db.collection("contact").add({
     name,
     email,
     phone,
+    company,
+    inquiry,
+    role,
     message,
     createdAt: admin.firestore.FieldValue.serverTimestamp(),
   })
 
   res.json({ message: "Success", id: docRef.id })
 })
+
+
 
 // Start server
 const PORT = process.env.BACKEND_PORT || 3000

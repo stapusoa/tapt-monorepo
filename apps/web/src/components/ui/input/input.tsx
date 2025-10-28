@@ -64,7 +64,7 @@ export const Input: React.FC<InputProps> = ({
           })
         )}
       >
-        {startIcon && <span className="ml-3 text-neutral-500">{startIcon}</span>}
+        {startIcon && <span className="text-neutral-500">{startIcon}</span>}
 
         <input
           id={id}
@@ -72,7 +72,7 @@ export const Input: React.FC<InputProps> = ({
           value={value}
           onChange={handleChange}
           className={cn(
-            "flex-1 bg-transparent outline-none border-none placeholder-neutral-600",
+            "flex-1 bg-transparent outline-none border-none placeholder-neutral-500",
             startIcon && "pl-2",
             endIcon && "pr-2"
           )}
@@ -90,7 +90,7 @@ export const Input: React.FC<InputProps> = ({
             <X size={16} />
           </button>
         ) : (
-          endIcon && <span className="mr-3 text-neutral-500">{endIcon}</span>
+          endIcon && <span className="text-neutral-500">{endIcon}</span>
         )}
       </div>
 

@@ -1,14 +1,14 @@
 import { cva } from "class-variance-authority"
 
 export const inputWrapper = cva(
-  "relative flex items-center rounded-md border transition-all duration-200",
+  "relative flex gap-2 items-center rounded-md border transition-all duration-200",
   {
     variants: {
       variant: {
         default: "",
         outline: "border-neutral-300 bg-transparent shadow-xs",
         outlined: "border-neutral-300 bg-transparent shadow-xs",
-        filled: "bg-neutral-100 border-transparent focus-within:ring-2 focus-within:ring-secondary",
+        filled: "bg-neutral-50 border-transparent focus-within:ring-2 focus-within:ring-secondary",
         ghost: "border-transparent bg-transparent hover:bg-neutral-50",
       },
       color: {
