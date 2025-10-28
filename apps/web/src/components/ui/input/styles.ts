@@ -5,6 +5,8 @@ export const inputWrapper = cva(
   {
     variants: {
       variant: {
+        default: "",
+        outline: "border-neutral-300 bg-transparent shadow-xs",
         outlined: "border-neutral-300 bg-transparent shadow-xs",
         filled: "bg-neutral-100 border-transparent focus-within:ring-2 focus-within:ring-secondary",
         ghost: "border-transparent bg-transparent hover:bg-neutral-50",
@@ -13,6 +15,8 @@ export const inputWrapper = cva(
         default: "focus-within:border-neutral-700 focus-within:ring-2",
         primary: "focus-within:border-primary",
         secondary: "focus-within:border-secondary",
+        success: "",
+        neutral: "focus-within:border-neutral-700 focus-within:ring-2",
         danger: "focus-within:border-cherry-400",
       },
       size: {
