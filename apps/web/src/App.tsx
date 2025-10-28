@@ -12,6 +12,7 @@ import { CaseStudy } from '@/lib/helpers/CaseStudy'
 import { About } from './pages/About'
 import type { PageType } from "@/components/ui/navigation/types"
 import type { Product, ProductWithQuantity } from "@/lib/types"
+import { Prototype } from './pages/Prototype'
 import { CartDrawer } from '@/lib/helpers/CartDrawer'
 import { withLDProvider } from "launchdarkly-react-client-sdk"
 import { Footer } from '@/components/ui/navigation/footer'
@@ -108,6 +109,14 @@ function App() {
           element={
             <Resources
               onNavigate={handleNavigate}
+            />
+          }
+        />
+        <Route
+          path="/prototype/:prototypeId"
+          element={
+            <Prototype
+
             />
           }
         />

@@ -131,8 +131,7 @@ export const caseStudies: CaseStudy[] = [
     subtitle: 'Complete redesign with documentation in a design system and 432 components.',
     category: 'Inventory Management',
      designSystemLink: "https://ocean-brain-28461597.figma.site",
-    prototype: "https://www.figma.com/proto/i2Mm2TP7Zf41jhRNazAuF5/Figma-FishbowlGO-Design---iPad?page-id=1215%3A276282&node-id=1302-361010&viewport=62%2C4832%2C0.07&t=kwCngw4wliAgbI5a-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1302%3A361007",
-   
+    prototypeId: "fishbowl",
     duration: '8 months ⎯ Originally, the project was roadmapped for a month reskinning of the mobile native app. Through research and brainstorming, the project specs changed. We worked on it from January 2021 to September 2021.',
     team: [
       <>
@@ -515,8 +514,7 @@ export const caseStudies: CaseStudy[] = [
       "Scalable design library tested and documented through Storybook and Figma.",
     category: 'Travel',
        designSystemLink: "https://draft-latte-97757953.figma.site",
-    prototype: "https://www.figma.com/proto/i2Mm2TP7Zf41jhRNazAuF5/Figma-FishbowlGO-Design---iPad?page-id=1215%3A276282&node-id=1302-361010&viewport=62%2C4832%2C0.07&t=kwCngw4wliAgbI5a-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1302%3A361007",
-  
+prototypeId: "travelpass",  
     duration: "6 months ⎯ I contributed to the creation of the product team starting as the only designer in the engineering department and growing into a team of 6+ product managers and 6+ designers and CPO. In the beginning I handled design, research, and project management. As the team grew, my focus shifted to the native app and design systems, where I specialize in creating and documenting reusable components and collaborating with engineers to build and implement them in code.",
     team: [
       <>
@@ -899,7 +897,7 @@ export const caseStudies: CaseStudy[] = [
       "Streamlined workflows and refactored the design systems of 6 products.",
     category: 'Travel',
       designSystemLink: "https://www.figma.com/design/jhZrrqwvPHXHkZW0MyGbL7/%E2%9D%96-Travelpass-2.3-Web-Design-System?node-id=18300-112146&t=wu7mpZSxpR4LhFms-1",
-    prototype: "travelpass.com",
+prototypeId: "tpg-storybook",  
   
     duration: "2 1/2 years ⎯ My role developed into a design systems manager, UX advisor, and frontend engineer. During this time I improved and managed the workflows of the team as well as contributed to the designs and code of the design systems, both in Figma and in the codebase.",
     team: [

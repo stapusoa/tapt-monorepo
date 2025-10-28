@@ -307,7 +307,8 @@ export function CaseStudy({ onNavigate }: CaseStudyProps) {
               <h1 className="title-md text-primary font-thin lowercase">{project.title}</h1>
               <h2 className="title-2xl text-blueberry-900 font-bold lowercase mb-8">{project.subtitle}</h2>
               <div className="flex items-left justify-left gap-x-4">
-                <Button className="" variant="filled" color="secondary" size="lg" onClick={() => window.open(project.prototype, "_blank")}>
+                <Button className="" variant="filled" color="secondary" size="lg"   onClick={() => navigate(`/prototype/${project.prototypeId}`)}
+>
                   View prototype
                 </Button>
                 <Button className="" variant="outlined" color="secondary" size="lg" onClick={handleNextProject}>
